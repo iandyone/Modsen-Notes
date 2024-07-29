@@ -1,0 +1,90 @@
+{
+    "extends": ["react-app", "react-app/jest", "plugin:prettier/recommended"],
+    "plugins": ["prettier"],
+    "parser": "@typescript-eslint/parser",
+    "rules": {
+        "prettier/prettier": "warn",
+        "no-console": "warn",
+        "no-unused-vars": ["warn", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }],
+        "quotes": ["warn", "single"],
+        "prefer-const": "error",
+        "indent": ["warn", 2],
+        "max-len": ["warn", 120],
+        "semi": ["warn", "always"],
+        "consistent-return": "off",
+        "curly": ["error", "all"],
+
+        "import/no-default-export": "error",
+        "import/prefer-default-export": "off",
+        "import/order": [
+            "warn",
+            {
+                "pathGroups": [
+                    {
+                        "pattern": "@/**",
+                        "group": "internal",
+                        "position": "after"
+                    },
+                    {
+                        "pattern": "./**",
+                        "group": "internal",
+                        "position": "after"
+                    }
+                ],
+                "newlines-between": "always",
+                "pathGroupsExcludedImportTypes": ["builtin"],
+                "alphabetize": {
+                    "order": "asc",
+                    "caseInsensitive": true
+                }
+            }
+        ],
+        "comma-dangle": [
+            "warn",
+            {
+                "objects": "only-multiline",
+                "arrays": "never",
+                "imports": "never",
+                "exports": "never",
+                "functions": "never"
+            }
+        ],
+
+        "react/prop-types": "off",
+        "react/no-children-prop": "off",
+        "react/no-array-index-key": "off",
+        "react/react-in-jsx-scope": "off",
+        "react/jsx-props-no-spreading": "off",
+        "react/display-name": "off",
+        "prefer-destructuring": "off",
+        "jsx-a11y/control-has-associated-label": "off",
+        "jsx-quotes": ["warn", "prefer-single"],
+
+        "padding-line-between-statements": [
+            "error",
+            { "blankLine": "always", "prev": "*", "next": "if" },
+            { "blankLine": "always", "prev": "*", "next": "for" },
+            { "blankLine": "always", "prev": "*", "next": "while" },
+            { "blankLine": "always", "prev": "*", "next": "return" }
+        ]
+    },
+    "settings": {
+        "import/extensions": [".ts", ".tsx"],
+        "import/parsers": {
+            "@typescript-eslint/parser": [".ts", ".tsx"]
+        },
+        // eslint-import-resolver-alias
+        "import/resolver": {
+            "alias": {
+                "map": [
+                    ["@", "./src"],
+                    ["@components", "./src/components"],
+                    ["@constants", "./src/constants"],
+                    ["@hooks", "./src/hooks"]
+                ],
+                "extensions": [".js", ".jsx", ".ts", ".tsx", ".json"]
+            }
+        }
+    },
+    "ignorePatterns": ["node_modules/", "dist", "*.config.*"]
+}
