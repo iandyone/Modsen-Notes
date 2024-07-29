@@ -1,0 +1,20 @@
+:root {
+  /* --- COLORS --- */
+  --color-pink: #ffafa3;
+  --color-blue: #80caff;
+  --color-yellow: #ffd966;
+  --color-green: #85e0a3;
+  --color-purple: #d9b8ff;
+  --color-orange: #ffc470;
+  --color-black: #010101;
+  --color-blue: #1b18b4;
+  --color-gray: #858585;
+  --color-white: #fefefe;
+
+  /* --- FONTS --- */
+  --font-family-ns: "Noto Sans";
+  --font-family-oswald: "Oswald";
+
+  /* --- SHADOWS --- */
+  --shadow-box: 0px 4px 10px 0px #01010140;
+}
