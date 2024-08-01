@@ -5,13 +5,13 @@
     "rules": {
         "prettier/prettier": "warn",
         "no-console": "warn",
-        "no-unused-vars": ["warn", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }],
+        "@typescript-eslint/no-unused-vars": ["warn", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }],
         "quotes": ["warn", "single"],
         "prefer-const": "error",
         "indent": ["warn", 2],
-        "max-len": ["warn", 120],
         "semi": ["warn", "always"],
         "consistent-return": "off",
+        // "arrow-body-style": "error",
         "curly": ["error", "all"],
 
         "import/no-default-export": "error",
@@ -39,16 +39,7 @@
                 }
             }
         ],
-        "comma-dangle": [
-            "warn",
-            {
-                "objects": "only-multiline",
-                "arrays": "never",
-                "imports": "never",
-                "exports": "never",
-                "functions": "never"
-            }
-        ],
+        "comma-dangle": "off",
 
         "react/prop-types": "off",
         "react/no-children-prop": "off",
@@ -58,7 +49,7 @@
         "react/display-name": "off",
         "prefer-destructuring": "off",
         "jsx-a11y/control-has-associated-label": "off",
-        "jsx-quotes": ["warn", "prefer-single"],
+        "jsx-quotes": ["warn", "prefer-double"],
 
         "padding-line-between-statements": [
             "error",
@@ -79,8 +70,12 @@
                 "map": [
                     ["@", "./src"],
                     ["@components", "./src/components"],
+                    ["@ui", "./src/components/ui"],
                     ["@constants", "./src/constants"],
-                    ["@hooks", "./src/hooks"]
+                    ["@pages", "./src/pages"],
+                    ["@utils", "./src/utils"],
+                    ["@hooks", "./src/hooks"],
+                    ["@assets", "./src/assets"]
                 ],
                 "extensions": [".js", ".jsx", ".ts", ".tsx", ".json"]
             }

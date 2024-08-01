@@ -1,0 +1,15 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  row-gap: 24px;
+}
+
+.heading {
+  font-size: 85px;
+  line-height: calc(125 / 85 * 100%);
+  letter-spacing: 0.05em;
+  text-align: center;
+}
