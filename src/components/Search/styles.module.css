@@ -1,0 +1,25 @@
+@import "../../vars.css";
+
+.wrapper {
+  display: flex;
+  position: relative;
+  column-gap: 10px;
+  background-color: var(--color-gray-light);
+  width: 100%;
+  height: 100%;
+
+  padding: 12px 24px;
+  max-width: 364px;
+  border-radius: var(--border-radus);
+}
+
+.input {
+  background-color: transparent;
+  font-family: Inter;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 26px;
+  text-align: left;
+  color: var(--color-black);
+  width: 100%;
+}

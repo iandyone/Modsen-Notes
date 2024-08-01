@@ -1,0 +1,41 @@
+@import "../../../vars.css";
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 28px;
+  padding: 12px 24px;
+  width: 180px;
+  height: 52px;
+  font-family: var(--font-inter);
+  transition: var(--transition);
+  border-radius: var(--border-radus);
+  color: var(--color-black);
+
+  &:hover {
+    cursor: pointer;
+    opacity: 0.75;
+  }
+
+  &:active {
+    transform: var(--scale);
+  }
+}
+
+.action {
+  column-gap: 8px;
+  background-color: var(--color-blue);
+  color: var(--color-white);
+}
+
+.route {
+  color: var(--color-black);
+}
+
+.active {
+  transition: var(--transition);
+  background-color: var(--color-gray-light);
+}
