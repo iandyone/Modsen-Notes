@@ -1,10 +1,54 @@
-@import url(https://fonts.googleapis.com/css?family=Oswald:300,regular,500);
-@import url(https://fonts.googleapis.com/css?family=Noto+Sans:500,700);
+@import url(https://fonts.googleapis.com/css?family=Inter:regular,600,700);
+
+@import "./vars.css";
 
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  box-sizing: border-box;
+}
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+a:focus,
+a:active {
+  outline: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+ul,
+ol,
+li {
+  list-style: none;
+}
+img {
+  vertical-align: top;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: inherit;
+  font-size: inherit;
 }
 
 html,
@@ -14,14 +58,28 @@ body {
   margin: 0;
   overflow: hidden;
   position: fixed;
+  color: var(--color-black);
 }
 
 body {
   margin: 0;
-  font-family: "Oswald", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: var(--font-inter);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #00000026;
+  border-radius: var(--border-radius);
 }
 
 #root {
@@ -36,6 +94,8 @@ body {
 
 input,
 textarea {
-  font-family: "Inter";
+  font-family: var(--font-inter);
   border: none;
+  border: none;
+  outline: none;
 }
