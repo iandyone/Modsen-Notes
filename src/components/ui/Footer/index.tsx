@@ -11,7 +11,7 @@ export const Footer: FC = () => {
   return (
     <footer className={styles.wrapper}>
       <Search />
-      <Button icon={addIcon} alt="add note" content="New note" />
+      <Button icon={addIcon} alt="add note" content="Add a note" />
     </footer>
   );
 };

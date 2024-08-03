@@ -8,9 +8,9 @@
   border-radius: var(--border-radus);
   padding: 4px;
   gap: 4px;
-  height: 52px;
+  height: 60px;
   background-color: var(--color-white);
   box-shadow: var(--shadow-container);
   width: 100%;
-  max-width: 560px;
+  max-width: 556px;
 }
