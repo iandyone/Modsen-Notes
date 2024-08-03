@@ -3,10 +3,10 @@ export interface StylesProps {
 }
 
 export interface NoteData {
-  title: string;
+  title?: string;
   description: string;
   tags: Tag[];
-  data: number;
+  timestamp: number;
   order: number;
   color: string;
 }

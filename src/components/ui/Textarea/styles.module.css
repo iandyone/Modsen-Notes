@@ -3,6 +3,8 @@
   position: relative;
   height: 100%;
   width: 100%;
+  font-size: 17px;
+  line-height: 26px;
 
   & > * {
     all: unset;
@@ -24,7 +26,8 @@
   box-sizing: border-box;
 
   & > span {
-    background-color: rgba(30, 127, 228, 0.4);
+    background-color: rgba(30, 127, 228, 0.25);
+    border-radius: 4px;
   }
 }
 
