@@ -28,7 +28,7 @@ export const Notes: FC = () => {
       ) : (
         <>
           {NOTES.map((note) => (
-            <Note key={note.data} {...note} />
+            <Note key={note.timestamp} {...note} />
           ))}
         </>
       )}
