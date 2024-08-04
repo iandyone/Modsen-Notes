@@ -1,16 +1,16 @@
-import { NOTES } from 'constants/notes';
-
 import cn from 'classnames';
 import { FC } from 'react';
 
 import notesIcon from '@assets/icons/notes.svg';
+import { Note } from '@components/Note';
 import { Heading } from '@components/ui/Heading';
-import { Note } from '@components/ui/Note';
+import { useGetAllNotesQuery } from '@query';
 
 import styles from './styles.module.css';
 
 export const Notes: FC = () => {
-  const isNoteListEmpty = NOTES.length === 0;
+  const { data: notes } = useGetAllNotesQuery();
+  const isNoteListEmpty = notes?.length === 0;
 
   return (
     <article
@@ -26,11 +26,7 @@ export const Notes: FC = () => {
           icon={notesIcon}
         />
       ) : (
-        <>
-          {NOTES.map((note) => (
-            <Note key={note.timestamp} {...note} />
-          ))}
-        </>
+        <>{notes && notes.map((note) => <Note key={note.timestamp} {...note} />)}</>
       )}
     </article>
   );
