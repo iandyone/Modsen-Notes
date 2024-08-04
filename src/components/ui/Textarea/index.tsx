@@ -1,18 +1,14 @@
-import React, { ChangeEvent, FC, useEffect, useMemo, useRef, useState } from 'react';
+import React, { ChangeEvent, FC, useEffect, useMemo, useRef } from 'react';
 
 import styles from './styles.module.css';
+import { TextAreaProps } from './types';
 
-interface TextAreaProps {
-  content: string;
-}
-
-export const TextArea: FC<TextAreaProps> = ({ content }) => {
-  const [text, setText] = useState(content);
+export const TextArea: FC<TextAreaProps> = ({ content, tags, onChange, onBlur }) => {
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const textDisplayRef = useRef<HTMLDivElement>(null);
 
-  const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    setText(event.target.value);
+  const handleOnChangeTextarea = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    onChange(event.target.value);
   };
 
   const handleScroll = () => {
@@ -23,30 +19,31 @@ export const TextArea: FC<TextAreaProps> = ({ content }) => {
   };
 
   const highlightedText = useMemo(() => {
-    const parts = text.split(/(\s+|\n)/).map((part, i) => {
-      if (part.startsWith('#')) {
-        return <span key={i}>{part}</span>;
-      } else if (part === '\n') {
-        return (
-          <p>
-            <br key={i} />
-            <br key={`${i}${i}`} />
-          </p>
-        );
-      } else {
-        return part;
+    const parts = content.split(/(\s+|\n)/).map((word, index) => {
+      if (tags.includes(word) || word.startsWith('#')) {
+        return <span key={index}>{word}</span>;
       }
+
+      if (word === '\n') {
+        return <br key={index} />;
+      }
+
+      return word;
     });
 
     return parts;
-  }, [text]);
+  }, [content, tags]);
+
+  const handleOnBlurTextarea = () => {
+    onBlur();
+  };
 
   useEffect(() => {
     if (textAreaRef.current && textDisplayRef.current) {
       textDisplayRef.current.scrollTop = textAreaRef.current.scrollTop;
       textDisplayRef.current.scrollLeft = textAreaRef.current.scrollLeft;
     }
-  }, [text]);
+  }, [content]);
 
   return (
     <div className={styles.wrapper}>
@@ -56,9 +53,10 @@ export const TextArea: FC<TextAreaProps> = ({ content }) => {
       <textarea
         ref={textAreaRef}
         className={styles.textarea}
-        value={text}
-        onChange={handleChange}
+        value={content}
+        onChange={handleOnChangeTextarea}
         onScroll={handleScroll}
+        onBlur={handleOnBlurTextarea}
       />
     </div>
   );

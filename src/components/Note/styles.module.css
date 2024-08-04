@@ -51,11 +51,11 @@
   padding: 8px 0;
 }
 
-.tags {
+/* .tags {
   display: flex;
   column-gap: 12px;
   color: var(--color-blue);
-}
+} */
 
 .date {
   font-size: 17px;

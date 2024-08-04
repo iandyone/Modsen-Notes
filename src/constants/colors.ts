@@ -6,3 +6,14 @@ export enum Colors {
   ORANGE = '#ffee8e8f',
   YELLOW = '#fef4e8',
 }
+
+const { GREEN, GREEN_LIGHT, ORANGE, PINK, PURPLE, YELLOW } = Colors;
+
+export const NOTE_COLOR_BY_ORDER_DATA = {
+  [GREEN_LIGHT]: GREEN,
+  [GREEN]: PURPLE,
+  [PURPLE]: PINK,
+  [PINK]: ORANGE,
+  [ORANGE]: YELLOW,
+  [YELLOW]: GREEN_LIGHT,
+};
