@@ -24,7 +24,8 @@
       "@constants": ["./constants"],
       "@utils": ["./utils"],
       "@hooks/*": ["./hooks/*"],
-      "@assets/*": ["./assets/*"]
+      "@assets/*": ["./assets/*"],
+      "@query": ["./query"]
     }
   },
 
