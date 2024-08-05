@@ -1,8 +1,8 @@
 import { NoteData } from 'types';
 
-import { Colors } from './colors';
+import { COLORS } from './colors';
 
-const { GREEN, GREEN_LIGHT, ORANGE, PINK, PURPLE, YELLOW } = Colors;
+const { GREEN, GREEN_LIGHT, ORANGE, PINK, PURPLE, YELLOW } = COLORS;
 
 export const NOTES: NoteData[] = [
   {

@@ -4,7 +4,7 @@ import { Button } from '../ui/Button';
 
 import addIcon from '@assets/icons/plus.svg';
 import { Search } from '@components/Search';
-import { Colors } from '@constants';
+import { COLORS } from '@constants';
 import { useCreateNoteMutation, useGetAllNotesQuery } from '@query';
 import { getNoteColor } from '@utils';
 
@@ -15,7 +15,7 @@ export const Footer: FC = () => {
   const { data: notes } = useGetAllNotesQuery();
 
   const handleOnButtonClick = () => {
-    const lastNoteColor = notes?.at(-1)?.color ?? Colors.GREEN_LIGHT;
+    const lastNoteColor = notes?.at(-1)?.color ?? COLORS.GREEN_LIGHT;
 
     createNote(getNoteColor(lastNoteColor));
   };

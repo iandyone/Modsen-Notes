@@ -1,4 +1,4 @@
-export enum Colors {
+export enum COLORS {
   GREEN_LIGHT = '#e8fbfe',
   GREEN = '#ecfee8',
   PURPLE = '#ece8fe',
@@ -7,7 +7,7 @@ export enum Colors {
   YELLOW = '#fef4e8',
 }
 
-const { GREEN, GREEN_LIGHT, ORANGE, PINK, PURPLE, YELLOW } = Colors;
+const { GREEN, GREEN_LIGHT, ORANGE, PINK, PURPLE, YELLOW } = COLORS;
 
 export const NOTE_COLOR_BY_ORDER_DATA = {
   [GREEN_LIGHT]: GREEN,

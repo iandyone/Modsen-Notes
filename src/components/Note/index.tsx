@@ -1,7 +1,10 @@
-import { ChangeEvent, FC, MouseEvent, useCallback, useEffect, useMemo, useState } from 'react';
+import { ChangeEvent, FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { NoteData } from 'types';
 
+import { ContextMenu } from '@components/ContextMenu';
 import { TagsBar } from '@components/TagsBar';
+import { useContextMenu } from '@hooks/useContextMenu';
+import { useOutsideClickMany } from '@hooks/useOutsideClickMany';
 import { useRemoveNoteMutation, useUpdateNoteMutation } from '@query';
 import { TextArea } from '@ui/Textarea';
 import { getDataStringFromTimestamp } from '@utils';
@@ -10,15 +13,17 @@ import styles from './styles.module.css';
 
 export const Note: FC<NoteData> = (note) => {
   const { id, title, description, color, tags, timestamp } = note;
+  const contextMenuRef = useRef<HTMLDivElement>(null);
+  const date = useMemo(() => getDataStringFromTimestamp(timestamp), [timestamp]);
+  const withTags = tags.length > 0;
 
   const [heading, setHeading] = useState(title);
   const [noteDescription, setNoteDescription] = useState(description);
 
+  const { contextMenuConfig, setContextMenuConfig, handleCloseContextMenu, handleOnRightClickNote } = useContextMenu();
+
   const { mutate: updateNote } = useUpdateNoteMutation();
   const { mutate: removeNote } = useRemoveNoteMutation();
-
-  const date = useMemo(() => getDataStringFromTimestamp(timestamp), [timestamp]);
-  const withTags = tags.length > 0;
 
   const handleOnHeadingChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     setHeading(event.target.value);
@@ -50,10 +55,24 @@ export const Note: FC<NoteData> = (note) => {
     updateNote(updatedNoteData);
   }, [id, updateNote, noteDescription]);
 
-  const handleOnRightClickNote = (event: MouseEvent<HTMLElement>) => {
+  const handleOnClickColor = useCallback(
+    (color: string) => {
+      updateNote({
+        id,
+        color,
+      });
+
+      handleCloseContextMenu();
+    },
+    [id]
+  );
+
+  const handleOnClickRemoveButton = useCallback(() => {
     removeNote(id);
-    event.preventDefault();
-  };
+    handleCloseContextMenu();
+  }, [id]);
+
+  useOutsideClickMany([contextMenuRef], () => setContextMenuConfig({ isVisible: false }));
 
   useEffect(() => {
     setNoteDescription(note.description);
@@ -86,6 +105,17 @@ export const Note: FC<NoteData> = (note) => {
         {withTags && <TagsBar tags={tags} note={note} />}
         <span className={styles.date}>{date}</span>
       </div>
+
+      {contextMenuConfig.isVisible && (
+        <ContextMenu
+          type="note"
+          ref={contextMenuRef}
+          xOffSet={contextMenuConfig.xOffset}
+          yOffSet={contextMenuConfig.yOffset}
+          handleOnClickColor={handleOnClickColor}
+          handleOnClickRemoveButton={handleOnClickRemoveButton}
+        />
+      )}
     </article>
   );
 };
