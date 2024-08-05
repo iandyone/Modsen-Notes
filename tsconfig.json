@@ -25,7 +25,8 @@
       "@utils": ["./utils"],
       "@hooks/*": ["./hooks/*"],
       "@assets/*": ["./assets/*"],
-      "@query": ["./query"]
+      "@query": ["./query"],
+      "@hooks": ["./hooks"]
     }
   },
 

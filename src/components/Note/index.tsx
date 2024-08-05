@@ -37,7 +37,7 @@ export const Note: FC<NoteData> = (note) => {
     updateNote(updatedNoteData);
   }, [id, heading, updateNote]);
 
-  const handleOnBlurDescriprion = useCallback(() => {
+  const handleOnBlurDescription = useCallback(() => {
     const tagsList = noteDescription.split(/(\s+|\n)/).filter((tag) => tag.startsWith('#') && tag.length > 1);
     const tags = Array.from(new Set(tagsList));
 
@@ -79,7 +79,7 @@ export const Note: FC<NoteData> = (note) => {
         content={noteDescription}
         tags={tags}
         onChange={handleOnChangeDescription}
-        onBlur={handleOnBlurDescriprion}
+        onBlur={handleOnBlurDescription}
       />
 
       <div className={styles.footer}>
