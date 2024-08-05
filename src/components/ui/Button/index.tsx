@@ -1,11 +1,27 @@
 import cn from 'classnames';
-import { FC } from 'react';
+import { FC, useCallback, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
+
+import { ContextMenu } from '@components/ContextMenu';
+import { useContextMenu } from '@hooks/useContextMenu';
+import { useOutsideClickMany } from '@hooks/useOutsideClickMany';
+import { useCreateNoteMutation } from '@query';
 
 import styles from './styles.module.css';
 import { ButtonProps } from './types';
 
 export const Button: FC<ButtonProps> = ({ type = 'button', route = '/', content, icon, alt, onClick }) => {
+  const { contextMenuConfig, setContextMenuConfig, handleCloseContextMenu, handleOnRightClickNote } = useContextMenu();
+  const { mutate: createNote } = useCreateNoteMutation();
+  const contextMenuRef = useRef<HTMLDivElement>(null);
+
+  useOutsideClickMany([contextMenuRef], () => setContextMenuConfig({ isVisible: false }));
+
+  const handleOnClickColor = useCallback((color: string) => {
+    createNote(color);
+    handleCloseContextMenu();
+  }, []);
+
   if (type === 'route') {
     return (
       <NavLink
@@ -23,15 +39,18 @@ export const Button: FC<ButtonProps> = ({ type = 'button', route = '/', content,
   }
 
   return (
-    <button
-      type="button"
+    <div
       className={cn(styles.button, {
         [styles.action]: type === 'button',
       })}
       onClick={onClick}
+      onContextMenu={handleOnRightClickNote}
     >
       {icon && <img src={icon} alt={alt} />}
       {content}
-    </button>
+      {contextMenuConfig.isVisible && (
+        <ContextMenu ref={contextMenuRef} type="button" handleOnClickColor={handleOnClickColor} />
+      )}
+    </div>
   );
 };
