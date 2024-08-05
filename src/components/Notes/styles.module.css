@@ -5,7 +5,6 @@
 
 .notes {
   column-gap: 20px;
-  padding: vh 0;
   overflow-x: scroll;
   padding-bottom: 22px;
 }

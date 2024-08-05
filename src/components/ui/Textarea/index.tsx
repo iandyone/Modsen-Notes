@@ -51,6 +51,7 @@ export const TextArea: FC<TextAreaProps> = ({ content, tags, onChange, onBlur })
         {highlightedText}
       </div>
       <textarea
+        id="note-description"
         ref={textAreaRef}
         className={styles.textarea}
         value={content}
