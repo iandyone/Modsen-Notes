@@ -4,13 +4,15 @@ import { FC, useCallback, useRef, useState } from 'react';
 import notesIcon from '@assets/icons/notes.svg';
 import { Note } from '@components/Note';
 import { Heading } from '@components/ui/Heading';
+import { useSearch } from '@context';
 import { useMutationObserver, useScrollAndFocus } from '@hooks';
-import { useGetAllNotesQuery } from '@query';
+import { useGetNotesQuery } from '@query';
 
 import styles from './styles.module.css';
 
 export const Notes: FC = () => {
-  const { data: notes } = useGetAllNotesQuery();
+  const { searchValue } = useSearch();
+  const { data: notes } = useGetNotesQuery(searchValue);
   const isNoteListEmpty = notes?.length === 0;
   const containerRef = useRef<HTMLDivElement>(null);
   const [addedNode, setAddedNode] = useState<HTMLElement | null>(null);
