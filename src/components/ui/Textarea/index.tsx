@@ -20,7 +20,7 @@ export const TextArea: FC<TextAreaProps> = ({ content, tags, onChange, onBlur })
 
   const highlightedText = useMemo(() => {
     const parts = content.split(/(\s+|\n)/).map((word, index) => {
-      if (tags.includes(word) || word.startsWith('#')) {
+      if (tags.includes(word) || (word.startsWith('#') && word.length > 1)) {
         return <span key={index}>{word}</span>;
       }
 

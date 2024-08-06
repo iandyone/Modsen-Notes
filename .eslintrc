@@ -76,7 +76,8 @@
                     ["@utils", "./src/utils"],
                     ["@hooks", "./src/hooks"],
                     ["@assets", "./src/assets"],
-                    ["@query", "./src/query"]
+                    ["@query", "./src/query"],
+                    ["@context", "./src/context"]
                 ],
                 "extensions": [".js", ".jsx", ".ts", ".tsx", ".json"]
             }
