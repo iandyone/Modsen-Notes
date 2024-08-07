@@ -1,12 +1,16 @@
+/* eslint-disable indent */
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { NoteData, Tag } from 'types';
+import { NoteData } from 'types';
 
 import { API_QUERY_KEYS, BASE_URL } from '@constants';
+import { useSearch } from '@context';
 
-export const useGetNotesQuery = (tag: Tag = '') => {
+export const useGetNotesQuery = () => {
+  const { searchValue: tag } = useSearch();
+
   return useQuery({
-    queryKey: API_QUERY_KEYS.allNotes,
+    queryKey: [...API_QUERY_KEYS.allNotes, tag],
     queryFn: async () => {
       try {
         const params = tag

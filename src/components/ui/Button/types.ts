@@ -5,4 +5,5 @@ export interface ButtonProps {
   alt?: string;
   route?: string;
   onClick?: () => void;
+  withContextMenu?: boolean;
 }
