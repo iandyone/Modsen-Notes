@@ -1,33 +1,30 @@
-import { ChangeEvent, FC } from 'react';
+import { ChangeEvent, FC, FormEvent, useState } from 'react';
 
 import searchIcon from '@assets/icons/search.svg';
 import { useSearch } from '@context';
-import { useGetNotesQuery } from '@query';
 
 import styles from './styles.module.css';
 
 export const Search: FC = () => {
   const { searchValue, setSearchValue } = useSearch();
-  const { refetch } = useGetNotesQuery(searchValue);
+  const [value, setValue] = useState(searchValue);
 
   const handleOnChangeInput = (event: ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(event.target.value);
+    setValue(event.target.value);
+  };
+
+  const handleOnSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setSearchValue(value);
   };
 
   return (
-    <form
-      className={styles.wrapper}
-      onSubmit={(e) => {
-        e.preventDefault();
-
-        refetch();
-      }}
-    >
+    <form className={styles.wrapper} onSubmit={handleOnSubmit}>
       <img className={styles.icon} src={searchIcon} alt="search icon" />
       <input
         className={styles.input}
         placeholder="Search tags..."
-        value={searchValue}
+        value={value}
         onChange={handleOnChangeInput}
         type="text"
       />

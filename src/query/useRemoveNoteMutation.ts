@@ -2,9 +2,11 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 
 import { API_QUERY_KEYS, BASE_URL } from '@constants';
+import { useSearch } from '@context';
 
 export const useRemoveNoteMutation = () => {
   const queryClient = useQueryClient();
+  const { searchValue } = useSearch();
 
   return useMutation({
     mutationFn: async (noteID: number) => {
@@ -19,7 +21,7 @@ export const useRemoveNoteMutation = () => {
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: API_QUERY_KEYS.allNotes });
+      queryClient.invalidateQueries({ queryKey: [...API_QUERY_KEYS.allNotes, searchValue] });
     },
   });
 };
