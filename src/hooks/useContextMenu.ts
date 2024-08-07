@@ -10,11 +10,16 @@ export const useContextMenu = () => {
     setContextMenuConfig({ ...contextMenuConfig, isVisible: false });
   }, [contextMenuConfig]);
 
-  const handleOnRightClickNote = (event: MouseEvent<HTMLElement>) => {
+  const handleOnRightClickWithContextMenu = useCallback((event: MouseEvent<HTMLElement>) => {
     setContextMenuConfig({ isVisible: true, xOffset: event.clientX, yOffset: event.clientY });
     event.preventDefault();
     event.stopPropagation();
-  };
+  }, []);
 
-  return { contextMenuConfig, setContextMenuConfig, handleCloseContextMenu, handleOnRightClickNote };
+  return {
+    contextMenuConfig,
+    setContextMenuConfig,
+    handleCloseContextMenu,
+    handleOnRightClickNote: handleOnRightClickWithContextMenu,
+  };
 };

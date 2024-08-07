@@ -11,11 +11,12 @@ import { useGetNotesQuery } from '@query';
 import styles from './styles.module.css';
 
 export const Notes: FC = () => {
+  const [addedNode, setAddedNode] = useState<HTMLElement | null>(null);
   const { searchValue } = useSearch();
-  const { data: notes } = useGetNotesQuery(searchValue);
+  const { data: notes } = useGetNotesQuery();
+
   const isNoteListEmpty = notes?.length === 0;
   const containerRef = useRef<HTMLDivElement>(null);
-  const [addedNode, setAddedNode] = useState<HTMLElement | null>(null);
 
   const handleMutations = useCallback((mutationRecords: MutationRecord[]) => {
     const mutations = mutationRecords.filter(({ addedNodes }) => addedNodes.length);
@@ -47,7 +48,10 @@ export const Notes: FC = () => {
         [styles.welcome]: isNoteListEmpty,
       })}
     >
-      {isNoteListEmpty ? (
+      {isNoteListEmpty && searchValue && (
+        <Heading title="There is no notes founded" subtitle="Please try to change the filter" />
+      )}
+      {isNoteListEmpty && !searchValue ? (
         <Heading
           title="Add your first note"
           subtitle='To create a note please click the "Add a note" button below'

@@ -12,9 +12,9 @@ import { getNoteColor } from '@utils';
 import styles from './styles.module.css';
 
 export const Footer: FC = () => {
-  const { searchValue, setSearchValue } = useSearch();
+  const { setSearchValue } = useSearch();
   const { mutate: createNote } = useCreateNoteMutation();
-  const { data: notes } = useGetNotesQuery(searchValue);
+  const { data: notes } = useGetNotesQuery();
 
   const handleOnButtonClick = () => {
     const lastNoteColor = notes?.at(-1)?.color ?? COLORS.GREEN_LIGHT;
@@ -26,7 +26,7 @@ export const Footer: FC = () => {
   return (
     <footer className={styles.wrapper}>
       <Search />
-      <Button icon={addIcon} alt="add note" content="Add a note" onClick={handleOnButtonClick} />
+      <Button icon={addIcon} alt="add note" content="Add a note" onClick={handleOnButtonClick} withContextMenu />
     </footer>
   );
 };

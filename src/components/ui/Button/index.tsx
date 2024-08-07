@@ -10,7 +10,15 @@ import { useCreateNoteMutation } from '@query';
 import styles from './styles.module.css';
 import { ButtonProps } from './types';
 
-export const Button: FC<ButtonProps> = ({ type = 'button', route = '/', content, icon, alt, onClick }) => {
+export const Button: FC<ButtonProps> = ({
+  type = 'button',
+  route = '/',
+  content,
+  icon,
+  alt,
+  onClick,
+  withContextMenu = false,
+}) => {
   const { contextMenuConfig, setContextMenuConfig, handleCloseContextMenu, handleOnRightClickNote } = useContextMenu();
   const { mutate: createNote } = useCreateNoteMutation();
   const contextMenuRef = useRef<HTMLDivElement>(null);
@@ -48,7 +56,7 @@ export const Button: FC<ButtonProps> = ({ type = 'button', route = '/', content,
     >
       {icon && <img src={icon} alt={alt} />}
       {content}
-      {contextMenuConfig.isVisible && (
+      {withContextMenu && contextMenuConfig.isVisible && (
         <ContextMenu ref={contextMenuRef} type="button" handleOnClickColor={handleOnClickColor} />
       )}
     </div>

@@ -85,6 +85,7 @@ export const Note: FC<NoteData> = (note) => {
         backgroundColor: color,
       }}
       onContextMenu={handleOnRightClickNote}
+      title="Right click to edit the note"
     >
       <input
         className={styles.heading}
