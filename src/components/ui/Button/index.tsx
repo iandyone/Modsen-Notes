@@ -19,7 +19,7 @@ export const Button: FC<ButtonProps> = ({
   onClick,
   withContextMenu = false,
 }) => {
-  const { contextMenuConfig, setContextMenuConfig, handleCloseContextMenu, handleOnRightClickNote } = useContextMenu();
+  const { contextMenuConfig, setContextMenuConfig, handleCloseContextMenu, handleOnOpenContextMenu } = useContextMenu();
   const { mutate: createNote } = useCreateNoteMutation();
   const contextMenuRef = useRef<HTMLDivElement>(null);
 
@@ -52,7 +52,7 @@ export const Button: FC<ButtonProps> = ({
         [styles.action]: type === 'button',
       })}
       onClick={onClick}
-      onContextMenu={handleOnRightClickNote}
+      onContextMenu={handleOnOpenContextMenu}
     >
       {icon && <img src={icon} alt={alt} />}
       {content}
