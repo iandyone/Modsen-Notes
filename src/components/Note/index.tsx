@@ -1,29 +1,27 @@
-import { ChangeEvent, FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { ChangeEvent, FC, useCallback, useEffect, useRef, useState } from 'react';
 import { NoteData } from 'types';
 
 import { ContextMenu } from '@components/ContextMenu';
 import { TagsBar } from '@components/TagsBar';
+import { TextArea } from '@components/ui/Textarea';
 import { useContextMenu } from '@hooks/useContextMenu';
 import { useOutsideClickMany } from '@hooks/useOutsideClickMany';
 import { useRemoveNoteMutation, useUpdateNoteMutation } from '@query';
-import { TextArea } from '@ui/Textarea';
-import { getDataStringFromTimestamp } from '@utils';
 
 import styles from './styles.module.css';
 
 export const Note: FC<NoteData> = (note) => {
-  const { id, title, description, color, tags, timestamp } = note;
-  const contextMenuRef = useRef<HTMLDivElement>(null);
-  const date = useMemo(() => getDataStringFromTimestamp(timestamp), [timestamp]);
-  const withTags = tags.length > 0;
+  const { id, title, description, color, tags, lastupdate } = note;
 
   const [heading, setHeading] = useState(title);
   const [noteDescription, setNoteDescription] = useState(description);
+  const contextMenuRef = useRef<HTMLDivElement>(null);
 
-  const { contextMenuConfig, setContextMenuConfig, handleCloseContextMenu, handleOnRightClickNote } = useContextMenu();
-
+  const { contextMenuConfig, setContextMenuConfig, handleOnOpenContextMenu, handleCloseContextMenu } = useContextMenu();
   const { mutate: updateNote } = useUpdateNoteMutation();
   const { mutate: removeNote } = useRemoveNoteMutation();
+
+  const withTags = tags.length > 0;
 
   const handleOnHeadingChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     setHeading(event.target.value);
@@ -84,7 +82,7 @@ export const Note: FC<NoteData> = (note) => {
       style={{
         backgroundColor: color,
       }}
-      onContextMenu={handleOnRightClickNote}
+      onContextMenu={handleOnOpenContextMenu}
       title="Right click to edit the note"
     >
       <input
@@ -104,7 +102,7 @@ export const Note: FC<NoteData> = (note) => {
 
       <div className={styles.footer}>
         {withTags && <TagsBar tags={tags} note={note} />}
-        <span className={styles.date}>{date}</span>
+        <span className={styles.date}>{lastupdate}</span>
       </div>
 
       {contextMenuConfig.isVisible && (

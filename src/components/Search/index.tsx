@@ -1,12 +1,13 @@
 import { ChangeEvent, FC, FormEvent, useState } from 'react';
 
-import searchIcon from '@assets/icons/search.svg';
+import searchIcon from '@assets/search.svg';
 import { useSearch } from '@context';
 
 import styles from './styles.module.css';
 
 export const Search: FC = () => {
   const { searchValue, setSearchValue } = useSearch();
+
   const [value, setValue] = useState(searchValue);
 
   const handleOnChangeInput = (event: ChangeEvent<HTMLInputElement>) => {

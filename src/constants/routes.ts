@@ -1,9 +1,9 @@
-export enum PAGES {
+export enum PATHS {
   HOME = '/home',
   NOTES = '/notes',
 }
 
 export const ROUTES = [
-  { route: PAGES.HOME, title: 'Home' },
-  { route: PAGES.NOTES, title: 'Notes' },
+  { route: PATHS.HOME, title: 'Home' },
+  { route: PATHS.NOTES, title: 'Notes' },
 ];

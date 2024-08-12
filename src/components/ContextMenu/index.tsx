@@ -17,11 +17,11 @@ export const ContextMenu = forwardRef<HTMLDivElement, ContextMenuProps>(
       <div
         ref={ref}
         className={styles.wrapper}
+        onClick={handleOnContextContainerClick}
         style={{
           left: xOffSet,
           top: yOffSet,
         }}
-        onClick={handleOnContextContainerClick}
       >
         <div className={styles.palette}>
           {Object.values(COLORS).map((color) => (

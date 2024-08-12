@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import welcomeIcon from '@assets/icons/welcome.svg';
+import welcomeIcon from '@assets/welcome.svg';
 import { Heading } from '@components/ui/Heading';
 
 import styles from './styles.module.css';

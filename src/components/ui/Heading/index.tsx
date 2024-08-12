@@ -6,7 +6,7 @@ import { HeadingProps } from './types';
 export const Heading: FC<HeadingProps> = ({ title, subtitle, icon }) => {
   return (
     <section className={styles.wrapper}>
-      {icon && <img src={icon} alt="title icon" />}
+      {icon && <img src={icon} alt="heading icon" />}
       <div className={styles.content}>
         <h1 className={styles.title}>{title}</h1>
         {subtitle && <p className={styles.subtitle}>{subtitle}</p>}

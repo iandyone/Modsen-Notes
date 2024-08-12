@@ -4,6 +4,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 
 import { ErrorBoundary } from '@components/ErrorBoundary';
 import { Layout } from '@components/ui/Layout';
+import { PATHS } from '@constants';
 import { SearchContextProvider } from '@context';
 import { HomePage, NotesPage } from '@pages';
 
@@ -15,11 +16,11 @@ export const App: FC = () => {
       <QueryClientProvider client={queryClient}>
         <SearchContextProvider>
           <Routes>
-            <Route path="/" element={<Layout />}>
-              <Route index element={<Navigate to="/home" replace />} />
-              <Route path="home" element={<HomePage />} />
-              <Route path="notes" element={<NotesPage />} />
-              <Route path="*" element={<Navigate to="/home" replace />} />
+            <Route element={<Layout />}>
+              <Route index element={<Navigate to={PATHS.HOME} replace />} />
+              <Route path={PATHS.HOME} element={<HomePage />} />
+              <Route path={PATHS.NOTES} element={<NotesPage />} />
+              <Route path="*" element={<Navigate to={PATHS.HOME} replace />} />
             </Route>
           </Routes>
         </SearchContextProvider>
