@@ -7,8 +7,8 @@ export interface NoteData {
   title?: string;
   description: string;
   tags: Tag[];
-  timestamp: number;
-  order: number;
+  lastupdate: string;
+  position: number;
   color: string;
 }
 

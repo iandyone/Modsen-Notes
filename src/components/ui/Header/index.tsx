@@ -1,8 +1,8 @@
 import { FC } from 'react';
 
-import logo from '@assets/icons/logo.svg';
+import logo from '@assets/logo.svg';
+import { Button } from '@components/ui/Button';
 import { ROUTES } from '@constants';
-import { Button } from '@ui/Button';
 
 import styles from './styles.module.css';
 
