@@ -3,7 +3,9 @@ import { FC, useCallback, useRef, useState } from 'react';
 
 import notesIcon from '@assets/notes.svg';
 import { Note } from '@components/Note';
+import { Error } from '@components/ui/Error';
 import { Heading } from '@components/ui/Heading';
+import { Spinner } from '@components/ui/Spinner';
 import { useSearch } from '@context';
 import { useMutationObserver, useScrollAndFocus } from '@hooks';
 import { useGetNotesQuery } from '@query';
@@ -13,8 +15,8 @@ import styles from './styles.module.css';
 export const Notes: FC = () => {
   const [addedNode, setAddedNode] = useState<HTMLElement | null>(null);
 
+  const { data: notes, isLoading, isError } = useGetNotesQuery();
   const { searchValue } = useSearch();
-  const { data: notes } = useGetNotesQuery();
 
   const containerRef = useRef<HTMLDivElement>(null);
   const isNoteListEmpty = notes?.length === 0;
@@ -47,19 +49,29 @@ export const Notes: FC = () => {
       className={cn(styles.wrapper, {
         [styles.notes]: !isNoteListEmpty,
         [styles.welcome]: isNoteListEmpty,
+        [styles.loader]: isLoading || isError,
       })}
     >
-      {isNoteListEmpty && searchValue && (
-        <Heading title="There is no notes founded" subtitle="Please try to change the filter" />
-      )}
-      {isNoteListEmpty && !searchValue ? (
-        <Heading
-          title="Add your first note"
-          subtitle='To create a note please click the "Add a note" button below'
-          icon={notesIcon}
-        />
-      ) : (
-        <>{notes && notes.map((note) => <Note key={note.lastupdate} {...note} />)}</>
+      {isError && <Error />}
+
+      {isLoading && <Spinner size="l" />}
+
+      {notes && (
+        <>
+          {isNoteListEmpty && searchValue && (
+            <Heading title="There is no notes" subtitle="Try to change the search term" withAnimation />
+          )}
+
+          {isNoteListEmpty && !searchValue ? (
+            <Heading
+              title="Add your first note"
+              subtitle='To create a note please click the "Add a note" button below'
+              icon={notesIcon}
+            />
+          ) : (
+            <>{notes && notes!.map((note) => <Note key={note.id} {...note} />)}</>
+          )}
+        </>
       )}
     </article>
   );

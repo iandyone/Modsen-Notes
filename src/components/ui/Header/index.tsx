@@ -6,14 +6,16 @@ import { ROUTES } from '@constants';
 
 import styles from './styles.module.css';
 
-export const Header: FC = () => (
-  <header className={styles.header}>
-    <img src={logo} alt="logo" />
+export const Header: FC = () => {
+  return (
+    <header className={styles.header}>
+      <img src={logo} alt="logo" className={styles.logo} />
 
-    <div className={styles.linkContainer}>
-      {ROUTES.map(({ route, title }) => (
-        <Button key={route} type="route" route={route} content={title} />
-      ))}
-    </div>
-  </header>
-);
+      <div className={styles.linkContainer}>
+        {ROUTES.map(({ route, title }) => (
+          <Button key={route} className={styles.route} type="route" route={route} content={title} />
+        ))}
+      </div>
+    </header>
+  );
+};
