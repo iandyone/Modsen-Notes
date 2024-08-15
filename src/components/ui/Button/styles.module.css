@@ -14,6 +14,8 @@
   transition: var(--transition);
   border-radius: var(--border-radus);
   color: var(--color-black);
+  white-space: nowrap;
+  padding: 0 24px;
 
   &:hover {
     cursor: pointer;
@@ -33,9 +35,17 @@
 
 .route {
   color: var(--color-black);
+
+  @media (max-width: 480px) {
+    max-width: 154px;
+  }
 }
 
 .active {
   transition: var(--transition);
   background-color: var(--color-gray-light);
+}
+
+.disabled {
+  opacity: 0.75;
 }

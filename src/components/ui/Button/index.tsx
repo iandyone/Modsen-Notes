@@ -2,6 +2,8 @@ import cn from 'classnames';
 import { FC, useCallback, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 
+import { Spinner } from '../Spinner';
+
 import { ContextMenu } from '@components/ContextMenu';
 import { useContextMenu } from '@hooks/useContextMenu';
 import { useOutsideClickMany } from '@hooks/useOutsideClickMany';
@@ -16,7 +18,10 @@ export const Button: FC<ButtonProps> = ({
   content,
   icon,
   alt,
+  isLoading,
+  loaderSize,
   onClick,
+  className = '',
   withContextMenu = false,
 }) => {
   const { contextMenuConfig, setContextMenuConfig, handleCloseContextMenu, handleOnOpenContextMenu } = useContextMenu();
@@ -30,12 +35,19 @@ export const Button: FC<ButtonProps> = ({
     handleCloseContextMenu();
   }, []);
 
+  const handleOnClickButton = () => {
+    if (!isLoading && onClick) {
+      onClick();
+    }
+  };
+
   if (type === 'route') {
     return (
       <NavLink
         to={route}
         className={({ isActive }) =>
           cn(styles.button, {
+            [className]: className,
             [styles.route]: type === 'route',
             [styles.active]: isActive,
           })
@@ -47,18 +59,22 @@ export const Button: FC<ButtonProps> = ({
   }
 
   return (
-    <div
-      className={cn(styles.button, {
-        [styles.action]: type === 'button',
-      })}
-      onClick={onClick}
+    <button
+      onClick={handleOnClickButton}
       onContextMenu={handleOnOpenContextMenu}
+      disabled={isLoading}
+      className={cn(styles.button, {
+        [className]: className,
+        [styles.action]: type === 'button',
+        [styles.disabled]: isLoading,
+      })}
     >
-      {icon && <img src={icon} alt={alt} />}
+      {isLoading && <Spinner size={loaderSize} />}
+      {!isLoading && icon && <img src={icon} alt={alt} />}
       {content}
       {withContextMenu && contextMenuConfig.isVisible && (
         <ContextMenu ref={contextMenuRef} type="button" handleOnClickColor={handleOnClickColor} />
       )}
-    </div>
+    </button>
   );
 };
