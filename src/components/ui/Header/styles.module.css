@@ -10,6 +10,12 @@
   height: 60px;
   background-color: var(--color-white);
   box-shadow: var(--shadow-container);
+  margin: 0 20px;
+
+  @media (max-width: 480px) {
+    width: calc(100% - 40px);
+    justify-content: space-between;
+  }
 }
 
 .linkContainer {
@@ -17,4 +23,20 @@
   justify-content: center;
   align-items: center;
   gap: 4px;
+
+  width: 100%;
+}
+
+.logo {
+  @media (max-width: 645px) {
+    display: none;
+  }
+}
+
+.route {
+  @media (max-width: 480px) {
+    padding: 0;
+    max-width: none;
+    width: 100%;
+  }
 }

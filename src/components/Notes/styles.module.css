@@ -13,3 +13,8 @@
   padding-top: 52px;
   justify-content: center;
 }
+
+.loader {
+  justify-content: center;
+  align-items: center;
+}

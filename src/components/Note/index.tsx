@@ -79,11 +79,11 @@ export const Note: FC<NoteData> = (note) => {
   return (
     <article
       className={styles.wrapper}
+      onContextMenu={handleOnOpenContextMenu}
+      title="Right click to edit the note"
       style={{
         backgroundColor: color,
       }}
-      onContextMenu={handleOnOpenContextMenu}
-      title="Right click to edit the note"
     >
       <input
         className={styles.heading}

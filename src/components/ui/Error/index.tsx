@@ -6,6 +6,6 @@ import styles from './styles.module.css';
 
 export const Error: FC = () => (
   <article className={styles.wrapper}>
-    <Heading title="Something went wrong..." subtitle='Please go to the "Notes" and try again' />
+    <Heading title="Something went wrong..." subtitle="Please try again latter" withAnimation />
   </article>
 );
