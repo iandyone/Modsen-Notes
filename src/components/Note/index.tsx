@@ -1,4 +1,5 @@
 import { ChangeEvent, FC, useCallback, useEffect, useRef, useState } from 'react';
+import { useDrag, useDrop } from 'react-dnd';
 import { NoteData } from 'types';
 
 import { ContextMenu } from '@components/ContextMenu';
@@ -6,20 +7,24 @@ import { TagsBar } from '@components/TagsBar';
 import { TextArea } from '@components/ui/Textarea';
 import { useContextMenu } from '@hooks/useContextMenu';
 import { useOutsideClickMany } from '@hooks/useOutsideClickMany';
-import { useRemoveNoteMutation, useUpdateNoteMutation } from '@query';
+import { useRemoveNoteMutation, useUpdateNoteMutation, useUpdateNotesPositions } from '@query';
 
 import styles from './styles.module.css';
+import { NoteProps } from './types';
 
-export const Note: FC<NoteData> = (note) => {
+export const Note: FC<NoteProps> = ({ note, moveNote, index, notes }) => {
   const { id, title, description, color, tags, lastupdate } = note;
 
   const [heading, setHeading] = useState(title);
   const [noteDescription, setNoteDescription] = useState(description);
+
   const contextMenuRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLElement>(null);
 
   const { contextMenuConfig, setContextMenuConfig, handleOnOpenContextMenu, handleCloseContextMenu } = useContextMenu();
   const { mutate: updateNote } = useUpdateNoteMutation();
   const { mutate: removeNote } = useRemoveNoteMutation();
+  const { mutate: updateNotesPositions } = useUpdateNotesPositions();
 
   const withTags = tags.length > 0;
 
@@ -70,6 +75,52 @@ export const Note: FC<NoteData> = (note) => {
     handleCloseContextMenu();
   }, [id]);
 
+  const [, drag] = useDrag({
+    type: 'note',
+    item: { id: note.id, index },
+  });
+
+  const [, drop] = useDrop({
+    accept: 'note',
+    hover: (item: { id: string; index: number }, monitor) => {
+      if (!containerRef.current) {
+        return;
+      }
+
+      const dragIndex = item.index;
+      const hoverIndex = index;
+
+      if (dragIndex === hoverIndex) {
+        return;
+      }
+
+      const hoverBoundingRect = containerRef.current.getBoundingClientRect();
+      const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+
+      const clientOffset = monitor.getClientOffset();
+      const hoverClientY = clientOffset!.y - hoverBoundingRect.top;
+
+      if (dragIndex > hoverIndex && hoverClientY >= hoverMiddleY) {
+        return;
+      }
+
+      moveNote(dragIndex, hoverIndex);
+
+      item.index = hoverIndex;
+    },
+
+    drop: (item: { id: string; index: number }, monitor) => {
+      const didDrop = monitor.didDrop();
+
+      if (!didDrop) {
+        const notesOrder = notes.map(({ id, position }) => ({ id, position }));
+        updateNotesPositions(notesOrder);
+      }
+    },
+  });
+
+  drag(drop(containerRef));
+
   useOutsideClickMany([contextMenuRef], () => setContextMenuConfig({ isVisible: false }));
 
   useEffect(() => {
@@ -78,6 +129,7 @@ export const Note: FC<NoteData> = (note) => {
 
   return (
     <article
+      ref={containerRef}
       className={styles.wrapper}
       onContextMenu={handleOnOpenContextMenu}
       title="Right click to edit the note"
