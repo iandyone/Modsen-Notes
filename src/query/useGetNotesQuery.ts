@@ -23,7 +23,7 @@ export const useGetNotesQuery = () => {
 
         const { data } = await axios.get<NoteData[]>(BASE_URL, params);
 
-        return data;
+        return data ?? [];
       } catch (error) {
         return Promise.reject(error);
       }

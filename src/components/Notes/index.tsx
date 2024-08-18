@@ -1,5 +1,7 @@
 import cn from 'classnames';
-import { FC, useCallback, useRef, useState } from 'react';
+import { FC, useCallback, useEffect, useRef, useState } from 'react';
+import { useDrop } from 'react-dnd';
+import { NoteData } from 'types';
 
 import notesIcon from '@assets/notes.svg';
 import { Note } from '@components/Note';
@@ -15,8 +17,10 @@ import styles from './styles.module.css';
 export const Notes: FC = () => {
   const [addedNode, setAddedNode] = useState<HTMLElement | null>(null);
 
-  const { data: notes, isLoading, isError } = useGetNotesQuery();
+  const { data: notesData, isLoading, isError } = useGetNotesQuery();
   const { searchValue } = useSearch();
+
+  const [notes, setNotes] = useState<NoteData[]>(notesData ?? []);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const isNoteListEmpty = notes?.length === 0;
@@ -39,40 +43,67 @@ export const Notes: FC = () => {
     });
   }, []);
 
-  useMutationObserver(containerRef, handleMutations);
+  const moveNote = useCallback(
+    (dragIndex: number, hoverIndex: number) => {
+      const updatedNotes = [...notes];
+      const [movedNote] = updatedNotes.splice(dragIndex, 1);
+      updatedNotes.splice(hoverIndex, 0, movedNote);
+
+      setNotes(updatedNotes.map((note, position) => ({ ...note, position })));
+    },
+    [notes]
+  );
+
+  // useMutationObserver(containerRef, handleMutations);
   useScrollAndFocus(addedNode, containerRef);
 
+  useEffect(() => {
+    if (notesData) {
+      setNotes(notesData);
+    }
+  }, [notesData]);
+
   return (
-    <article
-      id="notes-container"
-      ref={containerRef}
-      className={cn(styles.wrapper, {
-        [styles.notes]: !isNoteListEmpty,
-        [styles.welcome]: isNoteListEmpty,
-        [styles.loader]: isLoading || isError,
-      })}
+    <div
+      style={{
+        height: '100%',
+      }}
     >
-      {isError && <Error />}
+      <article
+        id="notes-container"
+        ref={containerRef}
+        className={cn(styles.wrapper, {
+          [styles.notes]: !isNoteListEmpty,
+          [styles.welcome]: isNoteListEmpty,
+          [styles.loader]: isLoading || isError,
+        })}
+      >
+        {isLoading && <Spinner size="l" />}
 
-      {isLoading && <Spinner size="l" />}
+        {isError && !isLoading && <Error />}
 
-      {notes && (
-        <>
-          {isNoteListEmpty && searchValue && (
-            <Heading title="There is no notes" subtitle="Try to change the search term" withAnimation />
-          )}
+        {notes && !isLoading && !isError && (
+          <>
+            {isNoteListEmpty && searchValue && !isLoading && (
+              <Heading title="There is no notes" subtitle="Try to change the search term" withAnimation />
+            )}
 
-          {isNoteListEmpty && !searchValue ? (
-            <Heading
-              title="Add your first note"
-              subtitle='To create a note please click the "Add a note" button below'
-              icon={notesIcon}
-            />
-          ) : (
-            <>{notes && notes!.map((note) => <Note key={note.id} {...note} />)}</>
-          )}
-        </>
-      )}
-    </article>
+            {isNoteListEmpty && !searchValue && !isLoading ? (
+              <Heading
+                title="Add your first note"
+                subtitle='To create a note please click the "Add a note" button below'
+                icon={notesIcon}
+              />
+            ) : (
+              <>
+                {notes.map((note, index) => (
+                  <Note key={note.id} note={note} notes={notes} index={index} moveNote={moveNote} />
+                ))}
+              </>
+            )}
+          </>
+        )}
+      </article>
+    </div>
   );
 };
