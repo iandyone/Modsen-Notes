@@ -49,12 +49,19 @@ export const Notes: FC = () => {
       const [movedNote] = updatedNotes.splice(dragIndex, 1);
       updatedNotes.splice(hoverIndex, 0, movedNote);
 
-      setNotes(updatedNotes.map((note, position) => ({ ...note, position })));
+      setNotes(
+        updatedNotes
+          .map((note, index) => ({
+            ...note,
+            position: index + 1,
+          }))
+          .sort((a, b) => a.position - b.position)
+      );
     },
     [notes]
   );
 
-  // useMutationObserver(containerRef, handleMutations);
+  useMutationObserver(containerRef, handleMutations);
   useScrollAndFocus(addedNode, containerRef);
 
   useEffect(() => {
