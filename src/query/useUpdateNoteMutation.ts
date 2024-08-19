@@ -12,9 +12,12 @@ export const useUpdateNoteMutation = () => {
   return useMutation({
     mutationFn: async (note: Partial<NoteData>) => {
       try {
+        const noteData = { ...note };
+        delete noteData.position;
+
         const { data } = await axios.patch(BASE_URL, {
           note: {
-            ...note,
+            ...noteData,
           },
         });
 
