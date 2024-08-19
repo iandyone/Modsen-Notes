@@ -13,7 +13,7 @@ import styles from './styles.module.css';
 import { NoteProps } from './types';
 
 export const Note: FC<NoteProps> = ({ note, moveNote, index, notes }) => {
-  const { id, title, description, color, tags, lastupdate } = note;
+  const { id, title, description, color, tags, lastupdate, position } = note;
 
   const [heading, setHeading] = useState(title);
   const [noteDescription, setNoteDescription] = useState(description);
@@ -49,9 +49,12 @@ export const Note: FC<NoteProps> = ({ note, moveNote, index, notes }) => {
     const tagsList = noteDescription.split(/(\s+|\n)/).filter((tag) => tag.startsWith('#') && tag.length > 1);
     const tags = Array.from(new Set(tagsList));
 
+    const position = notes.find((note) => note.id === id)?.position;
+
     const updatedNoteData: Partial<NoteData> = {
       id,
       tags,
+      position,
       description: noteDescription,
     };
 
@@ -95,12 +98,11 @@ export const Note: FC<NoteProps> = ({ note, moveNote, index, notes }) => {
       }
 
       const hoverBoundingRect = containerRef.current.getBoundingClientRect();
-      const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
 
       const clientOffset = monitor.getClientOffset();
       const hoverClientY = clientOffset!.y - hoverBoundingRect.top;
 
-      if (dragIndex > hoverIndex && hoverClientY >= hoverMiddleY) {
+      if (dragIndex > hoverIndex && hoverClientY >= hoverBoundingRect.bottom) {
         return;
       }
 
@@ -144,19 +146,17 @@ export const Note: FC<NoteProps> = ({ note, moveNote, index, notes }) => {
         onChange={handleOnHeadingChange}
         onBlur={handleOnBlurHeading}
       />
-
+      Position: {position}
       <TextArea
         content={noteDescription}
         tags={tags}
         onChange={handleOnChangeDescription}
         onBlur={handleOnBlurDescription}
       />
-
       <div className={styles.footer}>
         {withTags && <TagsBar tags={tags} note={note} />}
         <span className={styles.date}>{lastupdate}</span>
       </div>
-
       {contextMenuConfig.isVisible && (
         <ContextMenu
           type="note"
