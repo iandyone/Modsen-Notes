@@ -2,7 +2,7 @@
 
 .small {
   border: 2px solid var(--color-white);
-  width: 28px;
+  height: 28px;
 }
 
 .large {
@@ -13,7 +13,6 @@
 .loader {
   aspect-ratio: 1;
   border-radius: 50%;
-  /* border: 2px solid var(--color-blue); */
   animation:
     l20-1 0.8s infinite linear alternate,
     l20-2 1.6s infinite linear;

@@ -12,4 +12,9 @@ export interface NoteData {
   color: string;
 }
 
+export interface AxiosApiError {
+  message: string;
+  error: string;
+}
+
 export type Tag = string;
