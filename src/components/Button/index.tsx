@@ -2,7 +2,7 @@ import cn from 'classnames';
 import { FC, useCallback, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 
-import { Spinner } from '../Spinner';
+import { Spinner } from '../ui/Spinner';
 
 import { ContextMenu } from '@components/ContextMenu';
 import { useContextMenu } from '@hooks/useContextMenu';

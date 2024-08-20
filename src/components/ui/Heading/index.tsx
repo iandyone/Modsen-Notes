@@ -1,9 +1,10 @@
+import cn from 'classnames';
 import { FC } from 'react';
 
 import styles from './styles.module.css';
 import { HeadingProps } from './types';
 
-export const Heading: FC<HeadingProps> = ({ title, subtitle, icon, withAnimation }) => {
+export const Heading: FC<HeadingProps> = ({ title, message, icon, messageClassName = '', withAnimation }) => {
   return (
     <section className={styles.wrapper}>
       {withAnimation && (
@@ -15,7 +16,15 @@ export const Heading: FC<HeadingProps> = ({ title, subtitle, icon, withAnimation
       {icon && <img className={styles.icon} src={icon} alt="heading icon" />}
       <div className={styles.content}>
         <h1 className={styles.title}>{title}</h1>
-        {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
+        {message && (
+          <p
+            className={cn(styles.message, {
+              [messageClassName]: messageClassName,
+            })}
+          >
+            {message}
+          </p>
+        )}
       </div>
     </section>
   );

@@ -46,6 +46,7 @@ export const Search: FC = () => {
   const handleOnClickClearButton = () => {
     setSearchValue('');
     setInputValue('');
+    setShowTagsList(false);
   };
 
   const handleOnClickTag = useCallback((tag: Tag) => {
