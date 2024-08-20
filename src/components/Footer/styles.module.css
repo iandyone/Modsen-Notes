@@ -27,7 +27,7 @@
 .button {
   z-index: 5;
 
-  @media (max-width: 600px) {
+  @media (max-width: 645px) {
     height: 52px;
     width: 52px;
     padding: 0;

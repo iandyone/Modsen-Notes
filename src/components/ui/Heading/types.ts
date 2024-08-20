@@ -1,6 +1,7 @@
 export interface HeadingProps {
   title: string;
-  subtitle?: string;
+  message?: string;
+  messageClassName?: string;
   icon?: string;
   withAnimation?: boolean;
 }

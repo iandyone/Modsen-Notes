@@ -1,6 +1,6 @@
 import { FC, useCallback } from 'react';
 
-import { Button } from '../ui/Button';
+import { Button } from '../Button';
 
 import addIcon from '@assets/plus.svg';
 import { Search } from '@components/Search';
@@ -12,7 +12,7 @@ import { getNoteColor } from '@utils';
 
 import styles from './styles.module.css';
 
-const BUTTON_MOBILE_BREAKPOINT = 600;
+const BUTTON_MOBILE_BREAKPOINT = 645;
 
 export const Footer: FC = () => {
   const { mutate: createNote, isPending: isNoteCreation } = useCreateNoteMutation();

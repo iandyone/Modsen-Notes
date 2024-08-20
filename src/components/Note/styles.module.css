@@ -5,8 +5,10 @@
   flex-direction: column;
   border-radius: 24px;
   flex: 0 0 400px;
+  max-width: 400px;
   padding: 24px;
   padding-bottom: 0;
+  transition: box-shadow 0.3s ease;
 
   @media (max-width: 768px) {
     flex-basis: 300px;
@@ -69,4 +71,8 @@
   line-height: 26px;
   text-align: left;
   color: var(--color-gray);
+}
+
+.isActive {
+  box-shadow: var(--shadow-container);
 }

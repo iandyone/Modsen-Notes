@@ -2,17 +2,18 @@
 
 .wrapper {
   display: flex;
+  align-items: center;
   position: relative;
   column-gap: 10px;
   background-color: var(--color-gray-light);
   width: 100%;
   height: 100%;
-  padding: 12px 24px;
+  padding: 0 24px;
   max-width: 364px;
   border-radius: var(--border-radius);
   z-index: 5;
 
-  @media (max-width: 600px) {
+  @media (max-width: 645px) {
     max-width: none;
   }
 }
@@ -26,9 +27,12 @@
   text-align: left;
   color: var(--color-black);
   width: 100%;
+  height: 100%;
 }
 
 .clearButton {
+  width: 18px;
+  height: 18px;
   transition: var(--transition);
 
   &:hover {
@@ -36,6 +40,6 @@
   }
 
   &:active {
-    transform: var(--scale);
+    transform: scale(0.8);
   }
 }

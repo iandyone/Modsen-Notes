@@ -7,10 +7,6 @@ import styles from './styles.module.css';
 
 export const Home: FC = () => (
   <article className={styles.wrapper}>
-    <Heading
-      title="Welcome to notes"
-      subtitle='Please go to the "Notes" page to manage your notes'
-      icon={welcomeIcon}
-    />
+    <Heading title="Welcome to notes" message='Please go to the "Notes" page to manage your notes' icon={welcomeIcon} />
   </article>
 );

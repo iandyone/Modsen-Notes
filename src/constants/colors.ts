@@ -9,7 +9,7 @@ export enum COLORS {
 
 const { GREEN, GREEN_LIGHT, ORANGE, PINK, PURPLE, YELLOW } = COLORS;
 
-export const NOTE_COLOR_BY_ORDER_DATA = {
+export const NOTES_COLOR = {
   [GREEN_LIGHT]: GREEN,
   [GREEN]: PURPLE,
   [PURPLE]: PINK,
