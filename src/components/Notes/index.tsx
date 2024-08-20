@@ -17,7 +17,7 @@ import styles from './styles.module.css';
 export const Notes: FC = () => {
   const [addedNode, setAddedNode] = useState<HTMLElement | null>(null);
 
-  const { data: notesData, isLoading, isError } = useGetNotesQuery();
+  const { data: notesData, isLoading, isError, error: getNotesQueryError } = useGetNotesQuery();
   const { searchValue } = useSearch();
 
   const [notes, setNotes] = useState<NoteData[]>(notesData ?? []);
@@ -87,7 +87,7 @@ export const Notes: FC = () => {
       >
         {isLoading && <Spinner size="l" />}
 
-        {isError && !isLoading && <Error />}
+        {isError && !isLoading && <Error message={getNotesQueryError?.message} />}
 
         {notes && !isLoading && !isError && (
           <>

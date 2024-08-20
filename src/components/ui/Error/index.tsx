@@ -3,9 +3,10 @@ import { FC } from 'react';
 import { Heading } from '@components/ui/Heading';
 
 import styles from './styles.module.css';
+import { ErrorProps } from './types';
 
-export const Error: FC = () => (
+export const Error: FC<ErrorProps> = ({ title = 'Something went wrong...', message = 'Please try again latter' }) => (
   <article className={styles.wrapper}>
-    <Heading title="Something went wrong..." subtitle="Please try again latter" withAnimation />
+    <Heading title={title} subtitle={message} withAnimation />
   </article>
 );

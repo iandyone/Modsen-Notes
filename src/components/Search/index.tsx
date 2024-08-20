@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, FormEvent, useState } from 'react';
+import { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react';
 
 import searchIcon from '@assets/search.svg';
 import { useSearch } from '@context';
@@ -18,6 +18,12 @@ export const Search: FC = () => {
     event.preventDefault();
     setSearchValue(value);
   };
+
+  useEffect(() => {
+    if (!searchValue) {
+      setValue('');
+    }
+  }, [searchValue]);
 
   return (
     <form className={styles.wrapper} onSubmit={handleOnSubmit}>

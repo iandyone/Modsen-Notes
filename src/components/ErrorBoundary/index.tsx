@@ -1,7 +1,7 @@
-import { ErrorPage } from 'pages/error';
 import { Component, Suspense } from 'react';
 
 import { ErrorBoundaryProps, ErrorBoundaryState } from '@components/ErrorBoundary/types';
+import { ErrorPage } from '@pages';
 
 export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   constructor(props: ErrorBoundaryProps) {

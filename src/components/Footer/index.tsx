@@ -12,13 +12,16 @@ import { getNoteColor } from '@utils';
 
 import styles from './styles.module.css';
 
+const BUTTON_MOBILE_BREAKPOINT = 600;
+
 export const Footer: FC = () => {
   const { mutate: createNote, isPending: isNoteCreation } = useCreateNoteMutation();
-  const { data: notes } = useGetNotesQuery();
+  const { data: notes, isRefetching: isNotesLoading } = useGetNotesQuery();
   const { setSearchValue } = useSearch();
   const [viewportWidth] = useResize();
 
-  const buttonContent = viewportWidth > 600 ? 'Add a note' : '';
+  const buttonContent = viewportWidth > BUTTON_MOBILE_BREAKPOINT ? 'Add a note' : '';
+  const isLoading = isNotesLoading || isNoteCreation;
 
   const handleOnButtonClick = useCallback(() => {
     const lastNoteColor = notes?.at(-1)?.color ?? COLORS.GREEN_LIGHT;
@@ -34,7 +37,7 @@ export const Footer: FC = () => {
         icon={addIcon}
         alt="add note"
         content={buttonContent}
-        isLoading={isNoteCreation}
+        isLoading={isLoading}
         onClick={handleOnButtonClick}
         className={styles.button}
         loaderSize="s"
