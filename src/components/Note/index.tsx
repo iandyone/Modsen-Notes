@@ -146,7 +146,6 @@ export const Note: FC<NoteProps> = ({ note, moveNote, index, notes }) => {
         onChange={handleOnHeadingChange}
         onBlur={handleOnBlurHeading}
       />
-      Position: {position}
       <TextArea
         content={noteDescription}
         tags={tags}
