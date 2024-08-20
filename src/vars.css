@@ -22,7 +22,7 @@
   --shadow-container: 0px 4px 20px 0px #00000026;
 
   /* --- OTHER --- */
-  --border-radus: 100px;
+  --border-radius: 100px;
   --transition: all 0.3s ease;
   --scale: scale(0.95);
 }

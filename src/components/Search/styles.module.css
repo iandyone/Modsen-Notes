@@ -9,8 +9,9 @@
   height: 100%;
   padding: 12px 24px;
   max-width: 364px;
-  border-radius: var(--border-radus);
-  
+  border-radius: var(--border-radius);
+  z-index: 5;
+
   @media (max-width: 600px) {
     max-width: none;
   }
@@ -25,4 +26,16 @@
   text-align: left;
   color: var(--color-black);
   width: 100%;
+}
+
+.clearButton {
+  transition: var(--transition);
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:active {
+    transform: var(--scale);
+  }
 }

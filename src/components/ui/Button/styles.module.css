@@ -12,7 +12,7 @@
   height: 100%;
   font-family: var(--font-inter);
   transition: var(--transition);
-  border-radius: var(--border-radus);
+  border-radius: var(--border-radius);
   color: var(--color-black);
   white-space: nowrap;
   padding: 0 24px;
