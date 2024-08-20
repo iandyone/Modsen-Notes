@@ -4,7 +4,7 @@
   display: flex;
   justify-content: center;
   align-self: center;
-  border-radius: var(--border-radus);
+  border-radius: var(--border-radius);
   padding: 4px;
   gap: 4px;
   height: 60px;
