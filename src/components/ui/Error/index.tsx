@@ -7,6 +7,6 @@ import { ErrorProps } from './types';
 
 export const Error: FC<ErrorProps> = ({ title = 'Something went wrong...', message = 'Please try again latter' }) => (
   <article className={styles.wrapper}>
-    <Heading title={title} subtitle={message} withAnimation />
+    <Heading title={title} message={message} withAnimation />
   </article>
 );

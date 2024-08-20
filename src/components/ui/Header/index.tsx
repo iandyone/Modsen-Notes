@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 import logo from '@assets/logo.svg';
-import { Button } from '@components/ui/Button';
+import { Button } from '@components/Button';
 import { ROUTES } from '@constants';
 
 import styles from './styles.module.css';

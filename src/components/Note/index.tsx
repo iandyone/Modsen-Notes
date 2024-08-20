@@ -1,3 +1,4 @@
+import cn from 'classnames';
 import { ChangeEvent, FC, useCallback, useEffect, useRef, useState } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import { NoteData } from 'types';
@@ -13,9 +14,10 @@ import styles from './styles.module.css';
 import { NoteProps } from './types';
 
 export const Note: FC<NoteProps> = ({ note, moveNote, index, notes }) => {
-  const { id, title, description, color, tags, lastupdate, position } = note;
+  const { id, title, description, color, tags, lastupdate } = note;
 
   const [heading, setHeading] = useState(title);
+  const [isActive, setIsActive] = useState(false);
   const [noteDescription, setNoteDescription] = useState(description);
 
   const contextMenuRef = useRef<HTMLDivElement>(null);
@@ -78,6 +80,14 @@ export const Note: FC<NoteProps> = ({ note, moveNote, index, notes }) => {
     handleCloseContextMenu();
   }, [id]);
 
+  const handleOnClickNote = () => {
+    setIsActive(true);
+  };
+
+  const handleOnBlurNote = () => {
+    setIsActive(false);
+  };
+
   const [, drag] = useDrag({
     type: 'note',
     item: { id: note.id, index },
@@ -132,7 +142,11 @@ export const Note: FC<NoteProps> = ({ note, moveNote, index, notes }) => {
   return (
     <article
       ref={containerRef}
-      className={styles.wrapper}
+      className={cn(styles.wrapper, {
+        [styles.isActive]: isActive,
+      })}
+      onClick={handleOnClickNote}
+      onBlur={handleOnBlurNote}
       onContextMenu={handleOnOpenContextMenu}
       title="Right click to edit the note"
       style={{

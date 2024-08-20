@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import { FC, useCallback, useEffect, useRef, useState } from 'react';
+import { FC, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useDrop } from 'react-dnd';
 import { NoteData } from 'types';
 
@@ -64,7 +64,7 @@ export const Notes: FC = () => {
   useMutationObserver(containerRef, handleMutations);
   useScrollAndFocus(addedNode, containerRef);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (notesData) {
       setNotes(notesData);
     }
@@ -92,13 +92,18 @@ export const Notes: FC = () => {
         {notes && !isLoading && !isError && (
           <>
             {isNoteListEmpty && searchValue && !isLoading && (
-              <Heading title="There is no notes" subtitle="Try to change the search term" withAnimation />
+              <Heading
+                title="There is no notes"
+                message="Please try to change the search term"
+                messageClassName={styles.errorMessage}
+                withAnimation
+              />
             )}
 
             {isNoteListEmpty && !searchValue && !isLoading ? (
               <Heading
                 title="Add your first note"
-                subtitle='To create a note please click the "Add a note" button below'
+                message='To create a note please click the "Add a note" button below'
                 icon={notesIcon}
               />
             ) : (

@@ -1,6 +1,6 @@
 import { forwardRef, MouseEvent } from 'react';
 
-import { Button } from '@components/ui/Button';
+import { Button } from '@components/Button';
 import { Color } from '@components/ui/Color';
 import { COLORS } from '@constants';
 
