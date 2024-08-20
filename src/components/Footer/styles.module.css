@@ -2,10 +2,11 @@
 
 .wrapper {
   display: flex;
+  position: relative;
   justify-content: space-between;
   align-items: center;
   align-self: center;
-  border-radius: var(--border-radus);
+  border-radius: var(--border-radius);
   padding: 4px;
   gap: 4px;
   height: 60px;
@@ -24,6 +25,8 @@
 }
 
 .button {
+  z-index: 5;
+
   @media (max-width: 600px) {
     height: 52px;
     width: 52px;
