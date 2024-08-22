@@ -1,4 +1,5 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { DragContextProvider } from 'context/drag-n-drop';
 import { FC } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
@@ -15,14 +16,16 @@ export const App: FC = () => {
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
         <SearchContextProvider>
-          <Routes>
-            <Route element={<Layout />}>
-              <Route index element={<Navigate to={PATHS.HOME} replace />} />
-              <Route path={PATHS.HOME} element={<HomePage />} />
-              <Route path={PATHS.NOTES} element={<NotesPage />} />
-              <Route path="*" element={<Navigate to={PATHS.HOME} replace />} />
-            </Route>
-          </Routes>
+          <DragContextProvider>
+            <Routes>
+              <Route element={<Layout />}>
+                <Route index element={<Navigate to={PATHS.HOME} replace />} />
+                <Route path={PATHS.HOME} element={<HomePage />} />
+                <Route path={PATHS.NOTES} element={<NotesPage />} />
+                <Route path="*" element={<Navigate to={PATHS.HOME} replace />} />
+              </Route>
+            </Routes>
+          </DragContextProvider>
         </SearchContextProvider>
       </QueryClientProvider>
     </ErrorBoundary>

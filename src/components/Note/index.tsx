@@ -6,8 +6,8 @@ import { NoteData } from 'types';
 import { ContextMenu } from '@components/ContextMenu';
 import { TagsBar } from '@components/TagsBar';
 import { TextArea } from '@components/ui/Textarea';
-import { useContextMenu } from '@hooks/useContextMenu';
-import { useOutsideClickMany } from '@hooks/useOutsideClickMany';
+import { useIsDragging } from '@context';
+import { useContextMenu, useOutsideClickMany } from '@hooks';
 import { useRemoveNoteMutation, useUpdateNoteMutation, useUpdateNotesPositions } from '@query';
 
 import styles from './styles.module.css';
@@ -24,6 +24,8 @@ export const Note: FC<NoteProps> = ({ note, moveNote, index, notes }) => {
   const containerRef = useRef<HTMLElement>(null);
 
   const { contextMenuConfig, setContextMenuConfig, handleOnOpenContextMenu, handleCloseContextMenu } = useContextMenu();
+  const { isDragging, setIsDragging } = useIsDragging();
+
   const { mutate: updateNote } = useUpdateNoteMutation();
   const { mutate: removeNote } = useRemoveNoteMutation();
   const { mutate: updateNotesPositions } = useUpdateNotesPositions();
@@ -39,28 +41,32 @@ export const Note: FC<NoteProps> = ({ note, moveNote, index, notes }) => {
   }, []);
 
   const handleOnBlurHeading = useCallback(() => {
-    const updatedNoteData: Partial<NoteData> = {
-      id: id,
-      title: heading,
-    };
+    if (!isDragging) {
+      const updatedNoteData: Partial<NoteData> = {
+        id: id,
+        title: heading,
+      };
 
-    updateNote(updatedNoteData);
+      updateNote(updatedNoteData);
+    }
   }, [id, heading, updateNote]);
 
   const handleOnBlurDescription = useCallback(() => {
-    const tagsList = noteDescription.split(/(\s+|\n)/).filter((tag) => tag.startsWith('#') && tag.length > 1);
-    const tags = Array.from(new Set(tagsList));
+    if (!isDragging) {
+      const tagsList = noteDescription.split(/(\s+|\n)/).filter((tag) => tag.startsWith('#') && tag.length > 1);
+      const tags = Array.from(new Set(tagsList));
 
-    const position = notes.find((note) => note.id === id)?.position;
+      const position = notes.find((note) => note.id === id)?.position;
 
-    const updatedNoteData: Partial<NoteData> = {
-      id,
-      tags,
-      position,
-      description: noteDescription,
-    };
+      const updatedNoteData: Partial<NoteData> = {
+        id,
+        tags,
+        position,
+        description: noteDescription,
+      };
 
-    updateNote(updatedNoteData);
+      updateNote(updatedNoteData);
+    }
   }, [id, updateNote, noteDescription]);
 
   const handleOnClickColor = useCallback(
@@ -90,7 +96,13 @@ export const Note: FC<NoteProps> = ({ note, moveNote, index, notes }) => {
 
   const [, drag] = useDrag({
     type: 'note',
-    item: { id: note.id, index },
+    item: () => {
+      setIsDragging(true);
+
+      return { id: note.id, index };
+    },
+
+    end: () => setIsDragging(false),
   });
 
   const [, drop] = useDrop({

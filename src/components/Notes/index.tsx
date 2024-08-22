@@ -1,6 +1,5 @@
 import cn from 'classnames';
-import { FC, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { useDrop } from 'react-dnd';
+import { FC, useCallback, useLayoutEffect, useRef, useState } from 'react';
 import { NoteData } from 'types';
 
 import notesIcon from '@assets/notes.svg';
@@ -8,7 +7,7 @@ import { Note } from '@components/Note';
 import { Error } from '@components/ui/Error';
 import { Heading } from '@components/ui/Heading';
 import { Spinner } from '@components/ui/Spinner';
-import { useSearch } from '@context';
+import { useIsDragging, useSearch } from '@context';
 import { useMutationObserver, useScrollAndFocus } from '@hooks';
 import { useGetNotesQuery } from '@query';
 
@@ -17,9 +16,9 @@ import styles from './styles.module.css';
 export const Notes: FC = () => {
   const [addedNode, setAddedNode] = useState<HTMLElement | null>(null);
 
-  const { data: notesData, isLoading, isError, error: getNotesQueryError } = useGetNotesQuery();
+  const { data: notesData, isLoading, isError, error: notesQueryError } = useGetNotesQuery();
   const { searchValue } = useSearch();
-
+  const { isDragging } = useIsDragging();
   const [notes, setNotes] = useState<NoteData[]>(notesData ?? []);
 
   const containerRef = useRef<HTMLDivElement>(null);
@@ -28,7 +27,7 @@ export const Notes: FC = () => {
   const handleMutations = useCallback((mutationRecords: MutationRecord[]) => {
     const mutations = mutationRecords.filter(({ addedNodes }) => addedNodes.length);
 
-    if (mutations.length > 1) {
+    if (mutations.length > 1 || isDragging) {
       return;
     }
 
@@ -62,7 +61,7 @@ export const Notes: FC = () => {
   );
 
   useMutationObserver(containerRef, handleMutations);
-  useScrollAndFocus(addedNode, containerRef);
+  useScrollAndFocus(containerRef, addedNode);
 
   useLayoutEffect(() => {
     if (notesData) {
@@ -87,7 +86,7 @@ export const Notes: FC = () => {
       >
         {isLoading && <Spinner size="l" />}
 
-        {isError && !isLoading && <Error message={getNotesQueryError?.message} />}
+        {isError && !isLoading && <Error message={notesQueryError?.message} />}
 
         {notes && !isLoading && !isError && (
           <>

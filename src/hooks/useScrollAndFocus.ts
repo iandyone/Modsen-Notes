@@ -1,8 +1,12 @@
-import { useEffect } from 'react';
+import { RefObject, useEffect } from 'react';
 
-export const useScrollAndFocus = (node: HTMLElement | null, containerRef: React.RefObject<HTMLDivElement>) => {
+import { useIsDragging } from '@context';
+
+export const useScrollAndFocus = (containerRef: RefObject<HTMLDivElement>, node: HTMLElement | null) => {
+  const { isDragging } = useIsDragging();
+
   useEffect(() => {
-    if (!node) {
+    if (!node || isDragging) {
       return;
     }
 
