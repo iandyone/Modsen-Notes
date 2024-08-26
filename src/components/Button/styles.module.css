@@ -49,3 +49,9 @@
 .disabled {
   opacity: 0.75;
 }
+
+.contextMenu {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}

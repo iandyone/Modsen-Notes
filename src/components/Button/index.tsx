@@ -73,7 +73,12 @@ export const Button: FC<ButtonProps> = ({
       {!isLoading && icon && <img src={icon} alt={alt} />}
       {content}
       {withContextMenu && contextMenuConfig.isVisible && (
-        <ContextMenu ref={contextMenuRef} type="button" handleOnClickColor={handleOnClickColor} />
+        <ContextMenu
+          className={styles.contextMenu}
+          ref={contextMenuRef}
+          type="button"
+          handleOnClickColor={handleOnClickColor}
+        />
       )}
     </button>
   );
