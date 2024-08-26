@@ -27,12 +27,6 @@
   width: 100%;
 }
 
-.logo {
-  @media (max-width: 645px) {
-    display: none;
-  }
-}
-
 .route {
   @media (max-width: 480px) {
     padding: 0;

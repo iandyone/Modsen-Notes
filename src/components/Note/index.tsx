@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import { ChangeEvent, FC, useCallback, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, FC, MouseEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import { NoteData } from 'types';
 
@@ -34,6 +34,11 @@ export const Note: FC<NoteProps> = ({ note, moveNote, index, notes }) => {
 
   const handleOnHeadingChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     setHeading(event.target.value);
+  }, []);
+
+  const handleOnContextMenu = useCallback((event: MouseEvent<HTMLElement>) => {
+    setIsActive(true);
+    handleOnOpenContextMenu(event);
   }, []);
 
   const handleOnChangeDescription = useCallback((description: string) => {
@@ -159,7 +164,7 @@ export const Note: FC<NoteProps> = ({ note, moveNote, index, notes }) => {
       })}
       onClick={handleOnClickNote}
       onBlur={handleOnBlurNote}
-      onContextMenu={handleOnOpenContextMenu}
+      onContextMenu={handleOnContextMenu}
       title="Right click to edit the note"
       style={{
         backgroundColor: color,
