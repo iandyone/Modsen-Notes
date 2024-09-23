@@ -1,8 +1,9 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
+import { $api } from 'config/axios';
 import { AxiosApiError, NoteData } from 'types';
 
-import { API_QUERY_KEYS, BASE_URL } from '@constants';
+import { API_QUERY_KEYS } from '@constants';
 import { useSearch } from '@context';
 
 export const useUpdateNoteMutation = () => {
@@ -15,7 +16,7 @@ export const useUpdateNoteMutation = () => {
         const noteData = { ...note };
         delete noteData.position;
 
-        const { data } = await axios.patch(BASE_URL, {
+        const { data } = await $api.patch('/notes', {
           note: {
             ...noteData,
           },

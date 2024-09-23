@@ -5,9 +5,9 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 
 import { ErrorBoundary } from '@components/ErrorBoundary';
 import { Layout } from '@components/ui/Layout';
-import { PATHS } from '@constants';
+import { PAGES } from '@constants';
 import { SearchContextProvider } from '@context';
-import { HomePage, NotesPage } from '@pages';
+import { HomePage, SignInPage, NotesPage, SignUpPage } from '@pages';
 
 export const App: FC = () => {
   const queryClient = new QueryClient();
@@ -19,10 +19,12 @@ export const App: FC = () => {
           <DragContextProvider>
             <Routes>
               <Route element={<Layout />}>
-                <Route index element={<Navigate to={PATHS.HOME} replace />} />
-                <Route path={PATHS.HOME} element={<HomePage />} />
-                <Route path={PATHS.NOTES} element={<NotesPage />} />
-                <Route path="*" element={<Navigate to={PATHS.HOME} replace />} />
+                <Route index element={<Navigate to={PAGES.SIGN_IN} replace />} />
+                <Route path={PAGES.HOME} element={<HomePage />} />
+                <Route path={PAGES.NOTES} element={<NotesPage />} />
+                <Route path={PAGES.SIGN_IN} element={<SignInPage />} />
+                <Route path={PAGES.SIGN_UP} element={<SignUpPage />} />
+                <Route path="*" element={<Navigate to={PAGES.HOME} replace />} />
               </Route>
             </Routes>
           </DragContextProvider>

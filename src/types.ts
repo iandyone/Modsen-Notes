@@ -18,3 +18,21 @@ export interface AxiosApiError {
 }
 
 export type Tag = string;
+
+export interface SignInPayload {
+  email: string;
+  password: string;
+}
+
+export interface UserCredentialsData {
+  id: number;
+  email: string;
+  username: string;
+  accessToken: string;
+}
+
+export interface SignUpPayload {
+  username: string;
+  email: string;
+  password: string;
+}

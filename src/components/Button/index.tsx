@@ -13,13 +13,16 @@ import styles from './styles.module.css';
 import { ButtonProps } from './types';
 
 export const Button: FC<ButtonProps> = ({
+  view = 'button',
   type = 'button',
+  withContent = true,
+  loaderSize = 's',
+  spinnerColor,
   route = '/',
   content,
   icon,
   alt,
   isLoading,
-  loaderSize,
   onClick,
   className = '',
   withContextMenu = false,
@@ -41,14 +44,14 @@ export const Button: FC<ButtonProps> = ({
     }
   };
 
-  if (type === 'route') {
+  if (view === 'route') {
     return (
       <NavLink
         to={route}
         className={({ isActive }) =>
           cn(styles.button, {
             [className]: className,
-            [styles.route]: type === 'route',
+            [styles.route]: view === 'route',
             [styles.active]: isActive,
           })
         }
@@ -60,6 +63,7 @@ export const Button: FC<ButtonProps> = ({
 
   return (
     <button
+      type={type}
       onClick={handleOnClickButton}
       onContextMenu={handleOnOpenContextMenu}
       disabled={isLoading}
@@ -69,9 +73,12 @@ export const Button: FC<ButtonProps> = ({
         [styles.disabled]: isLoading,
       })}
     >
-      {isLoading && <Spinner size={loaderSize} />}
+      {isLoading && <Spinner size={loaderSize} color={spinnerColor} />}
+
       {!isLoading && icon && <img src={icon} alt={alt} />}
-      {content}
+
+      {withContent && content}
+
       {withContextMenu && contextMenuConfig.isVisible && (
         <ContextMenu
           className={styles.contextMenu}

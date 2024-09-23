@@ -1,8 +1,9 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
+import { $api } from 'config/axios';
 import { AxiosApiError, NoteData } from 'types';
 
-import { API_QUERY_KEYS, BASE_URL } from '@constants';
+import { API_QUERY_KEYS } from '@constants';
 
 type NoteDataPicked = Pick<NoteData, 'id' | 'position'>;
 
@@ -12,7 +13,7 @@ export const useUpdateNotesPositions = () => {
   return useMutation<NoteData[], AxiosApiError, NoteDataPicked[]>({
     mutationFn: async (notes) => {
       try {
-        const { data } = await axios.put(BASE_URL, {
+        const { data } = await $api.put('/notes', {
           notes,
         });
 
