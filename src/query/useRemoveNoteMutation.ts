@@ -1,8 +1,9 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
+import { $api } from 'config/axios';
 import { AxiosApiError, NoteData } from 'types';
 
-import { API_QUERY_KEYS, BASE_URL } from '@constants';
+import { API_QUERY_KEYS } from '@constants';
 import { useSearch } from '@context';
 
 export const useRemoveNoteMutation = () => {
@@ -12,7 +13,7 @@ export const useRemoveNoteMutation = () => {
   return useMutation<NoteData, AxiosApiError, number>({
     mutationFn: async (noteID) => {
       try {
-        const { data } = await axios.delete(BASE_URL, {
+        const { data } = await $api.delete('/notes', {
           data: { id: noteID },
         });
 

@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 
 import { Footer } from '@components/Footer';
-import { PATHS } from '@constants';
+import { PAGES } from '@constants';
 import { Header } from '@ui/Header';
 
 import styles from './styles.module.css';
@@ -18,7 +18,7 @@ export const Layout: FC = () => {
         <Outlet />
       </main>
 
-      {pathname === PATHS.NOTES && <Footer />}
+      {pathname === PAGES.NOTES && <Footer />}
     </div>
   );
 };

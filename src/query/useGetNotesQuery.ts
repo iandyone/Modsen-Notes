@@ -1,9 +1,10 @@
 /* eslint-disable indent */
 import { useQuery } from '@tanstack/react-query';
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
+import { $api } from 'config/axios';
 import { AxiosApiError, NoteData } from 'types';
 
-import { API_QUERY_KEYS, BASE_URL } from '@constants';
+import { API_QUERY_KEYS } from '@constants';
 import { useSearch } from '@context';
 
 export const useGetNotesQuery = () => {
@@ -21,7 +22,7 @@ export const useGetNotesQuery = () => {
             }
           : {};
 
-        const { data } = await axios.get<NoteData[]>(BASE_URL, params);
+        const { data } = await $api.get<NoteData[]>('/notes', params);
 
         return data ?? [];
       } catch (error) {
