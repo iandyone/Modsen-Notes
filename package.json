@@ -44,7 +44,8 @@
     "react-scripts": "5.0.1",
     "react-toastify": "^10.0.5",
     "typescript": "^4.9.5",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
@@ -54,6 +55,7 @@
     "@types/eslint-plugin-prettier": "^3.1.3",
     "@types/react-dnd": "^3.0.2",
     "@types/react-toastify": "^4.1.0",
+    "@types/yup": "^0.32.0",
     "@typescript-eslint/parser": "^7.18.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-import-resolver-alias": "^1.1.2",
