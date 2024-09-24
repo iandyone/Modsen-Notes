@@ -1,6 +1,7 @@
 import cn from 'classnames';
 import { Formik } from 'formik';
 import { FC } from 'react';
+import { signInValidationSchema } from 'schemas';
 
 import styles from '../styles.module.css';
 import { SignInFormProps, SignInState } from '../types';
@@ -27,14 +28,25 @@ export const SignInForm: FC<SignInFormProps> = ({ className = '' }) => {
         [className]: className,
       })}
     >
-      <Formik initialValues={signInFormInitialValues} onSubmit={handleOnSubmit}>
-        {({ handleSubmit }) => {
+      <Formik
+        initialValues={signInFormInitialValues}
+        validationSchema={signInValidationSchema}
+        onSubmit={handleOnSubmit}
+        validateOnChange
+      >
+        {({ handleSubmit, errors, touched }) => {
           return (
             <form onSubmit={handleSubmit} className={styles.form}>
               <h2 className={styles.heading}>Sign in</h2>
               <div className={styles.inputWrapper}>
-                <Input name="email" type="email" placeholder="Email" />
-                <Input name="password" type="password" placeholder="Password" />
+                <Input name="email" type="email" placeholder="Email" error={errors.email} touched={touched.email} />
+                <Input
+                  name="password"
+                  type="password"
+                  placeholder="Password"
+                  error={errors.password}
+                  touched={touched.password}
+                />
               </div>
               <Button
                 type="submit"
