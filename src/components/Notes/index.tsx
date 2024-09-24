@@ -9,6 +9,7 @@ import { Heading } from '@components/ui/Heading';
 import { Spinner } from '@components/ui/Spinner';
 import { useIsDragging, useSearch } from '@context';
 import { useMutationObserver, useScrollAndFocus } from '@hooks';
+import { useAuth } from '@hooks';
 import { useGetNotesQuery } from '@query';
 
 import styles from './styles.module.css';
@@ -62,6 +63,7 @@ export const Notes: FC = () => {
 
   useMutationObserver(containerRef, handleMutations);
   useScrollAndFocus(containerRef, addedNode);
+  useAuth();
 
   useLayoutEffect(() => {
     if (notesData) {
@@ -70,15 +72,11 @@ export const Notes: FC = () => {
   }, [notesData]);
 
   return (
-    <div
-      style={{
-        height: '100%',
-      }}
-    >
+    <div className={styles.wrapper}>
       <article
         id="notes-container"
         ref={containerRef}
-        className={cn(styles.wrapper, {
+        className={cn(styles.article, {
           [styles.notes]: !isNoteListEmpty,
           [styles.welcome]: isNoteListEmpty,
           [styles.loader]: isLoading || isError,

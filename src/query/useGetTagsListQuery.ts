@@ -7,14 +7,16 @@ import { AxiosApiError, Tag } from 'types';
 
 import { API_QUERY_KEYS, PAGES, STORAGE_KEYS, TOAST_MESSAGES } from '@constants';
 import { useToast } from '@context';
+import { useAuth } from '@hooks';
 import { removeFromLocalStorage } from '@utils';
 
 export const useGetTagsList = (tag?: string) => {
   const navigate = useNavigate();
   const { showToast } = useToast();
+  const { user, setAuthDataHandler } = useAuth();
 
   return useQuery<Tag[], AxiosApiError>({
-    queryKey: [...API_QUERY_KEYS.allTags, tag],
+    queryKey: [...API_QUERY_KEYS.allTags, tag, user.id],
     queryFn: async () => {
       try {
         const params = tag
@@ -36,6 +38,7 @@ export const useGetTagsList = (tag?: string) => {
               type: 'error',
             },
           });
+          setAuthDataHandler(null);
           removeFromLocalStorage(STORAGE_KEYS.ACCESS_TOKEN);
           navigate(PAGES.HOME);
         }
