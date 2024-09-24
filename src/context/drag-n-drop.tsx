@@ -1,11 +1,11 @@
 import { createContext, Dispatch, PropsWithChildren, SetStateAction, useContext, useMemo, useState } from 'react';
 
-interface DragContextInitialValue {
+interface DragContextState {
   isDragging: boolean;
   setIsDragging: Dispatch<SetStateAction<boolean>>;
 }
 
-const dragContext = createContext({} as DragContextInitialValue);
+const dragContext = createContext({} as DragContextState);
 
 export const DragContextProvider = ({ children }: PropsWithChildren) => {
   const [isDragging, setIsDragging] = useState(false);
