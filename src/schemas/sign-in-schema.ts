@@ -1,6 +1,6 @@
-import { FIELD_IS_REQUIRED, getMinLengthErrorMessage } from 'constants/validations';
-
 import { object, string } from 'yup';
+
+import { FIELD_IS_REQUIRED, getMinLengthErrorMessage } from '@constants';
 
 export const signInValidationSchema = object({
   email: string()
