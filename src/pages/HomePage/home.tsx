@@ -10,7 +10,6 @@ import styles from './styles.module.css';
 const { SIGN_IN, SIGN_UP } = AUTH_MODE;
 
 export const HomePage: FC = () => {
-  const a = 1;
   const [authMode, setAuthMode] = useState(SIGN_IN);
 
   const handleOnClickAuthButton = () => {
