@@ -26,9 +26,9 @@
 }
 
 .linkBar {
-  margin-top: 40px;
+  margin-top: 20px;
   border-top: 2px solid var(--color-gray-light);
-  padding-top: 40px;
+  padding-top: 20px;
 }
 
 .authButton {
