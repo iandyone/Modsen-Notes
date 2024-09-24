@@ -1,8 +1,6 @@
 export enum PAGES {
   HOME = '/home',
   NOTES = '/notes',
-  SIGN_IN = '/signin',
-  SIGN_UP = '/signup',
 }
 
 export const ROUTES = [

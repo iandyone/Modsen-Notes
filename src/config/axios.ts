@@ -20,18 +20,19 @@ $api.interceptors.response.use(
   async (error) => {
     const config = error.config;
 
-    if (error.response.status === 401 && !config.wasRefreshed) {
+    if (error.response?.status === 401 && !config.wasRefreshed) {
       config.wasRefreshed = true;
 
       try {
         const { data } = await axios.get<{ accessToken: string }>(`${BASE_URL}/auth/refresh`, {
           withCredentials: true,
         });
+
         saveToLocalStorage(STORAGE_KEYS.ACCESS_TOKEN, data.accessToken);
 
         return $api.request(config);
       } catch (error) {
-        console.log(error);
+        return Promise.reject(error);
       }
     }
   }

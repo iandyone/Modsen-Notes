@@ -1,14 +1,17 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { $api } from 'config/axios';
+import { useNavigate } from 'react-router-dom';
 import { AxiosApiError, NoteData } from 'types';
 
-import { API_QUERY_KEYS } from '@constants';
+import { API_QUERY_KEYS, PAGES, STORAGE_KEYS } from '@constants';
+import { removeFromLocalStorage } from '@utils';
 
 type NoteDataPicked = Pick<NoteData, 'id' | 'position'>;
 
 export const useUpdateNotesPositions = () => {
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   return useMutation<NoteData[], AxiosApiError, NoteDataPicked[]>({
     mutationFn: async (notes) => {
@@ -19,8 +22,9 @@ export const useUpdateNotesPositions = () => {
 
         return data;
       } catch (error) {
-        if (error instanceof AxiosError) {
-          return Promise.reject(error.response?.data);
+        if (error instanceof AxiosError && error.response.status === 401) {
+          removeFromLocalStorage(STORAGE_KEYS.ACCESS_TOKEN);
+          navigate(PAGES.HOME);
         }
 
         return Promise.reject(error);
