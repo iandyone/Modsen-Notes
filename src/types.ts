@@ -1,3 +1,5 @@
+import { ToastOptions } from 'react-toastify';
+
 export interface StylesProps {
   [key: string]: string;
 }
@@ -35,4 +37,8 @@ export interface SignUpPayload {
   username: string;
   email: string;
   password: string;
+}
+
+export interface ToastContextValues {
+  showToast: (params: { message: string | JSX.Element | null; settings?: ToastOptions }) => void;
 }

@@ -4,7 +4,8 @@ import { $api } from 'config/axios';
 import { useNavigate } from 'react-router-dom';
 import { AxiosApiError, NoteData } from 'types';
 
-import { API_QUERY_KEYS, PAGES, STORAGE_KEYS } from '@constants';
+import { API_QUERY_KEYS, PAGES, STORAGE_KEYS, TOAST_MESSAGES } from '@constants';
+import { useToast } from '@context';
 import { removeFromLocalStorage } from '@utils';
 
 type NoteDataPicked = Pick<NoteData, 'id' | 'position'>;
@@ -12,6 +13,7 @@ type NoteDataPicked = Pick<NoteData, 'id' | 'position'>;
 export const useUpdateNotesPositions = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+  const { showToast } = useToast();
 
   return useMutation<NoteData[], AxiosApiError, NoteDataPicked[]>({
     mutationFn: async (notes) => {
@@ -23,6 +25,12 @@ export const useUpdateNotesPositions = () => {
         return data;
       } catch (error) {
         if (error instanceof AxiosError && error.response.status === 401) {
+          showToast({
+            message: TOAST_MESSAGES.UNAUTHORIZERD,
+            settings: {
+              type: 'error',
+            },
+          });
           removeFromLocalStorage(STORAGE_KEYS.ACCESS_TOKEN);
           navigate(PAGES.HOME);
         }

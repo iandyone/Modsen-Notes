@@ -5,13 +5,14 @@ import { $api } from 'config/axios';
 import { useNavigate } from 'react-router-dom';
 import { AxiosApiError, NoteData } from 'types';
 
-import { API_QUERY_KEYS, PAGES, STORAGE_KEYS } from '@constants';
-import { useSearch } from '@context';
+import { API_QUERY_KEYS, PAGES, STORAGE_KEYS, TOAST_MESSAGES } from '@constants';
+import { useSearch, useToast } from '@context';
 import { removeFromLocalStorage } from '@utils';
 
 export const useGetNotesQuery = () => {
   const { searchValue: tag } = useSearch();
   const navigate = useNavigate();
+  const { showToast } = useToast();
 
   return useQuery<NoteData[], AxiosApiError>({
     queryKey: [...API_QUERY_KEYS.allNotes, tag],
@@ -30,6 +31,12 @@ export const useGetNotesQuery = () => {
         return data ?? [];
       } catch (error) {
         if (error instanceof AxiosError && error.response.status === 401) {
+          showToast({
+            message: TOAST_MESSAGES.UNAUTHORIZERD,
+            settings: {
+              type: 'error',
+            },
+          });
           removeFromLocalStorage(STORAGE_KEYS.ACCESS_TOKEN);
           navigate(PAGES.HOME);
         }
