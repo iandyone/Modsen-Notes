@@ -22,10 +22,10 @@ export const App: FC = () => {
               <DragContextProvider>
                 <Routes>
                   <Route element={<Layout />}>
-                    <Route index element={<Navigate to={PAGES.HOME} replace />} />
+                    <Route index element={<Navigate to={PAGES.NOTES} replace />} />
                     <Route path={PAGES.HOME} element={<HomePage />} />
                     <Route path={PAGES.NOTES} element={<NotesPage />} />
-                    <Route path="*" element={<Navigate to={PAGES.HOME} replace />} />
+                    <Route path="*" element={<Navigate to={PAGES.NOTES} replace />} />
                   </Route>
                 </Routes>
                 <ToastContainer autoClose={5000} position="top-right" />

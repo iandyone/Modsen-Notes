@@ -1,7 +1,8 @@
 import { createContext, Dispatch, PropsWithChildren, SetStateAction, useContext, useMemo, useState } from 'react';
 import { UserCredentialsData } from 'types';
 
-interface AuthContextState extends UserCredentialsData {
+interface AuthContextState {
+  user: UserCredentialsData;
   setAuthDataHandler: Dispatch<SetStateAction<UserCredentialsData>>;
 }
 
@@ -12,7 +13,7 @@ export const AuthContextProvider = ({ children }: PropsWithChildren) => {
 
   const values = useMemo(
     () => ({
-      ...authData,
+      user: { ...authData },
       setAuthDataHandler,
     }),
     [authData]
@@ -21,4 +22,4 @@ export const AuthContextProvider = ({ children }: PropsWithChildren) => {
   return <authContext.Provider value={values}>{children}</authContext.Provider>;
 };
 
-export const useAuth = () => useContext(authContext);
+export const useAuthContext = () => useContext(authContext);

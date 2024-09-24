@@ -5,7 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import { AxiosApiError, UserCredentialsData, SignInPayload } from 'types';
 
 import { PAGES, STORAGE_KEYS, TOAST_MESSAGES } from '@constants';
-import { useAuth, useToast } from '@context';
+import { useToast } from '@context';
+import { useAuth } from '@hooks';
 import { removeFromLocalStorage, saveToLocalStorage } from '@utils';
 
 export const useSignInMutation = () => {

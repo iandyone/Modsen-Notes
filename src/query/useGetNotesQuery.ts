@@ -7,15 +7,17 @@ import { AxiosApiError, NoteData } from 'types';
 
 import { API_QUERY_KEYS, PAGES, STORAGE_KEYS, TOAST_MESSAGES } from '@constants';
 import { useSearch, useToast } from '@context';
+import { useAuth } from '@hooks';
 import { removeFromLocalStorage } from '@utils';
 
 export const useGetNotesQuery = () => {
   const { searchValue: tag } = useSearch();
   const navigate = useNavigate();
   const { showToast } = useToast();
+  const { user, setAuthDataHandler } = useAuth();
 
   return useQuery<NoteData[], AxiosApiError>({
-    queryKey: [...API_QUERY_KEYS.allNotes, tag],
+    queryKey: [...API_QUERY_KEYS.allNotes, tag, user.id],
     queryFn: async () => {
       try {
         const params = tag
@@ -37,6 +39,7 @@ export const useGetNotesQuery = () => {
               type: 'error',
             },
           });
+          setAuthDataHandler(null);
           removeFromLocalStorage(STORAGE_KEYS.ACCESS_TOKEN);
           navigate(PAGES.HOME);
         }
