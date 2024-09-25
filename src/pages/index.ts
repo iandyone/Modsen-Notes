@@ -1,4 +1,4 @@
-export * from './HomePage/home';
+export * from './home';
 export * from './notes';
 export * from './error';
 export * from './sign-in';

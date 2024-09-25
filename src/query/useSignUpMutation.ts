@@ -7,7 +7,7 @@ import { SignUpPayload, UserCredentialsData } from 'types';
 import { PAGES, STORAGE_KEYS, TOAST_MESSAGES } from '@constants';
 import { useToast } from '@context';
 import { useAuth } from '@hooks';
-import { removeFromLocalStorage, saveToLocalStorage } from '@utils';
+import { saveToLocalStorage } from '@utils';
 
 export const useSignUpMutation = () => {
   const navigate = useNavigate();
@@ -17,24 +17,25 @@ export const useSignUpMutation = () => {
   return useMutation<UserCredentialsData, AxiosError, SignUpPayload>({
     mutationFn: async ({ username, email, password }) => {
       try {
-        const { data } = await $api.post('/auth/signup', {
+        const response = await $api.post('/auth/signup', {
           username,
           password,
           email,
         });
 
-        return data;
+        return response?.data;
       } catch (error) {
-        if (error instanceof AxiosError && error.response.status === 401) {
+        if (error instanceof AxiosError && error.response.status === 409) {
           showToast({
-            message: TOAST_MESSAGES.UNAUTHORIZERD,
-            settings: {
-              type: 'error',
-            },
+            message: error.response.data.message,
           });
-          removeFromLocalStorage(STORAGE_KEYS.ACCESS_TOKEN);
-          navigate(PAGES.HOME);
+
+          return;
         }
+
+        showToast({
+          message: TOAST_MESSAGES.SOMETHING_WRONG,
+        });
 
         return Promise.reject(error);
       }

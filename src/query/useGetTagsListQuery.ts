@@ -35,14 +35,17 @@ export const useGetTagsList = (tag?: string) => {
         if (error instanceof AxiosError && error.response.status === 401) {
           showToast({
             message: TOAST_MESSAGES.UNAUTHORIZERD,
-            settings: {
-              type: 'error',
-            },
           });
           setAuthDataHandler(null);
           removeFromLocalStorage(STORAGE_KEYS.ACCESS_TOKEN);
           navigate(PAGES.HOME);
+
+          return;
         }
+
+        showToast({
+          message: TOAST_MESSAGES.SOMETHING_WRONG,
+        });
 
         return Promise.reject(error);
       }
