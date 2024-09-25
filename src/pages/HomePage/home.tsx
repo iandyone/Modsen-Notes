@@ -2,6 +2,7 @@ import { FC, useState } from 'react';
 
 import welcomeIcon from '@assets/welcome.svg';
 import { SignInForm, SignUpForm } from '@components/Forms';
+import { SignOutForm } from '@components/Forms/SignOutForm';
 import { Heading } from '@components/ui/Heading';
 import { AUTH_MODE, HOME_WELCOME_MESSAGE, HOME_WELCOME_MESSAGE_WITH_AUTH, HOME_WELCOME_TITLE } from '@constants';
 import { useAuth } from '@hooks';
@@ -26,20 +27,24 @@ export const HomePage: FC = () => {
         icon={welcomeIcon}
       />
 
-      {!user.id && (
-        <div className={styles.auth}>
-          {authMode === SIGN_IN && <SignInForm className={styles.form} />}
+      <div className={styles.auth}>
+        {!user.id && (
+          <>
+            {authMode === SIGN_IN && <SignInForm className={styles.form} />}
 
-          {authMode === SIGN_UP && <SignUpForm className={styles.form} />}
+            {authMode === SIGN_UP && <SignUpForm className={styles.form} />}
 
-          <p className={styles.linkBar}>
-            Don't have an account?&nbsp;
-            <span className={styles.authButton} onClick={handleOnClickAuthButton}>
-              {authMode === SIGN_IN ? 'Sign up' : 'Sign in'}
-            </span>
-          </p>
-        </div>
-      )}
+            <p className={styles.linkBar}>
+              Don't have an account?&nbsp;
+              <span className={styles.authButton} onClick={handleOnClickAuthButton}>
+                {authMode === SIGN_IN ? 'Sign up' : 'Sign in'}
+              </span>
+            </p>
+          </>
+        )}
+
+        {user.id && <SignOutForm />}
+      </div>
     </article>
   );
 };

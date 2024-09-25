@@ -6,3 +6,4 @@ export * from './useUpdateNotesPositions';
 export * from './useGetTagsListQuery';
 export * from './useSignInMutation';
 export * from './useSignUpMutation';
+export * from './useSignOutQuery';
