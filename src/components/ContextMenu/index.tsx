@@ -31,7 +31,8 @@ export const ContextMenu = forwardRef<HTMLDivElement, ContextMenuProps>(
             <Color key={color} color={color} onClick={handleOnClickColor} />
           ))}
         </div>
-        {type === 'note' && <Button content="Remove note" onClick={handleOnClickRemoveButton} />}
+
+        {type === 'note' && <Button className={styles.button} content="Delete" onClick={handleOnClickRemoveButton} />}
       </div>
     );
   }
