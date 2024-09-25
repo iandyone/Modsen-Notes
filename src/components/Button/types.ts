@@ -1,6 +1,8 @@
 export interface ButtonProps {
   content?: string;
-  type?: 'button' | 'route';
+  variant?: 'primary' | 'secondary';
+  type?: 'button' | 'submit' | 'route';
+  spinnerColor?: 'white' | 'blue';
   icon?: string;
   alt?: string;
   route?: string;
@@ -8,5 +10,6 @@ export interface ButtonProps {
   loaderSize?: 's' | 'l';
   onClick?: () => void;
   withContextMenu?: boolean;
+  withContent?: boolean;
   className?: string;
 }

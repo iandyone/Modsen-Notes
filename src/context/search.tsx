@@ -1,11 +1,11 @@
 import { createContext, PropsWithChildren, SetStateAction, useContext, useMemo, useState, Dispatch } from 'react';
 
-interface SearchContextInitialValue<T> {
+interface SearchContextState<T> {
   searchValue: T;
   setSearchValue: Dispatch<SetStateAction<T>>;
 }
 
-const searchContext = createContext({} as SearchContextInitialValue<string>);
+const searchContext = createContext({} as SearchContextState<string>);
 
 export const SearchContextProvider = ({ children }: PropsWithChildren) => {
   const [searchValue, setSearchValue] = useState<string>('');

@@ -14,12 +14,15 @@ import { ButtonProps } from './types';
 
 export const Button: FC<ButtonProps> = ({
   type = 'button',
+  variant = 'primary',
+  withContent = true,
+  loaderSize = 's',
+  spinnerColor,
   route = '/',
   content,
   icon,
   alt,
   isLoading,
-  loaderSize,
   onClick,
   className = '',
   withContextMenu = false,
@@ -48,11 +51,13 @@ export const Button: FC<ButtonProps> = ({
         className={({ isActive }) =>
           cn(styles.button, {
             [className]: className,
-            [styles.route]: type === 'route',
+            [styles.variantSecondary]: variant === 'secondary',
             [styles.active]: isActive,
           })
         }
       >
+        {!isLoading && icon && <img src={icon} alt={alt} />}
+
         {content}
       </NavLink>
     );
@@ -60,18 +65,22 @@ export const Button: FC<ButtonProps> = ({
 
   return (
     <button
+      type={type}
       onClick={handleOnClickButton}
       onContextMenu={handleOnOpenContextMenu}
       disabled={isLoading}
       className={cn(styles.button, {
         [className]: className,
-        [styles.action]: type === 'button',
+        [styles.variantPrimary]: variant === 'primary',
         [styles.disabled]: isLoading,
       })}
     >
-      {isLoading && <Spinner size={loaderSize} />}
+      {isLoading && <Spinner size={loaderSize} color={spinnerColor} />}
+
       {!isLoading && icon && <img src={icon} alt={alt} />}
-      {content}
+
+      {withContent && content}
+
       {withContextMenu && contextMenuConfig.isVisible && (
         <ContextMenu
           className={styles.contextMenu}
