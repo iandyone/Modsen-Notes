@@ -1,9 +1,11 @@
 import { FC } from 'react';
 
-import { Home } from '@components/Home';
+import { Home } from '@components/Home/home';
 
-export const HomePage: FC = () => (
-  <>
-    <Home />
-  </>
-);
+export const HomePage: FC = () => {
+  return (
+    <>
+      <Home />
+    </>
+  );
+};

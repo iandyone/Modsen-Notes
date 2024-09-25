@@ -4,6 +4,7 @@
 
   --color-blue: #287fe4;
   --color-white: #ffffff;
+  --color-white-light: #eeeeee;
   --color-black: #1f1f1f;
   --color-gray: #808080;
   --color-gray-light: #ebebeb;
@@ -21,7 +22,6 @@
   /* --- SHADOWS --- */
   --shadow-container: 0px 4px 20px 0px #00000026;
   --shadow-note: 0px 15px 40px 0px #00000026;
-  
 
   /* --- OTHER --- */
   --border-radius: 100px;

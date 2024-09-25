@@ -1,0 +1,33 @@
+@import "../../../vars.css";
+
+.input {
+  width: 100%;
+  border-radius: 10px;
+  background-color: var(--color-white-light);
+  font-size: 17px;
+  line-height: 26px;
+  padding: 12px 16px;
+  border: 1px solid transparent;
+  margin-bottom: 17px;
+}
+
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2px;
+}
+
+.inputError {
+  border: 1px solid red;
+  margin-bottom: 0;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+  line-height: 125%;
+}
+
+.inputCorrect {
+  border: 1px solid green;
+}

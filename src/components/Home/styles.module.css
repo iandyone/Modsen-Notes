@@ -1,8 +1,41 @@
+@import "../../vars.css";
+
 .wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 20px;
+  padding: 0 20px;
+  height: 100%;
+}
+
+.form {
+  width: 100%;
+}
+
+.auth {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  height: 100%;
-  row-gap: 24px;
+  padding: 40px;
+  border-radius: 20px;
+  border: 2px solid var(--color-gray-light);
+  width: 100%;
+  max-width: 400px;
+}
+
+.linkBar {
+  margin-top: 20px;
+  border-top: 2px solid var(--color-gray-light);
+  padding-top: 20px;
+  text-align: center;
+}
+
+.authButton {
+  color: var(--color-blue);
+
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
 }
