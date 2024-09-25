@@ -16,7 +16,7 @@ const signInFormInitialValues: SignInState = {
 };
 
 export const SignInForm: FC<SignInFormProps> = ({ className = '' }) => {
-  const { mutate: handleOnLogin } = useSignInMutation();
+  const { mutate: handleOnLogin, isPending } = useSignInMutation();
 
   const handleOnSubmit = ({ email, password }: SignInState) => {
     handleOnLogin({ email, password });
@@ -48,7 +48,15 @@ export const SignInForm: FC<SignInFormProps> = ({ className = '' }) => {
                   touched={touched.password}
                 />
               </div>
-              <Button type="submit" content="Submit" loaderSize="s" spinnerColor="blue" className={styles.button} />
+              <Button
+                type="submit"
+                content="Sign in"
+                loaderSize="s"
+                spinnerColor="white"
+                isLoading={isPending}
+                withContent={!isPending}
+                className={styles.button}
+              />
             </form>
           );
         }}

@@ -7,7 +7,7 @@ import { AxiosApiError, UserCredentialsData, SignInPayload } from 'types';
 import { PAGES, STORAGE_KEYS, TOAST_MESSAGES } from '@constants';
 import { useToast } from '@context';
 import { useAuth } from '@hooks';
-import { removeFromLocalStorage, saveToLocalStorage } from '@utils';
+import { removeFromSessionStorage, saveToSessionStorage } from '@utils';
 
 export const useSignInMutation = () => {
   const navigate = useNavigate();
@@ -28,7 +28,7 @@ export const useSignInMutation = () => {
           showToast({
             message: TOAST_MESSAGES.INVALID_CREDENTIALS,
           });
-          removeFromLocalStorage(STORAGE_KEYS.ACCESS_TOKEN);
+          removeFromSessionStorage(STORAGE_KEYS.ACCESS_TOKEN);
           navigate(PAGES.HOME);
 
           return;
@@ -43,7 +43,7 @@ export const useSignInMutation = () => {
     },
     onSuccess(data) {
       setAuthDataHandler(data);
-      saveToLocalStorage(STORAGE_KEYS.ACCESS_TOKEN, data.accessToken);
+      saveToSessionStorage(STORAGE_KEYS.ACCESS_TOKEN, data.accessToken);
       navigate(PAGES.NOTES);
     },
 

@@ -1,5 +1,6 @@
 import cn from 'classnames';
-import { FC, useCallback, useLayoutEffect, useRef, useState } from 'react';
+import { FC, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { NoteData } from 'types';
 
 import notesIcon from '@assets/notes.svg';
@@ -7,6 +8,7 @@ import { Note } from '@components/Note';
 import { Error } from '@components/ui/Error';
 import { Heading } from '@components/ui/Heading';
 import { Spinner } from '@components/ui/Spinner';
+import { PAGES, TOAST_MESSAGES } from '@constants';
 import { useIsDragging, useSearch } from '@context';
 import { useMutationObserver, useScrollAndFocus } from '@hooks';
 import { useAuth } from '@hooks';
@@ -17,8 +19,10 @@ import styles from './styles.module.css';
 export const Notes: FC = () => {
   const [addedNode, setAddedNode] = useState<HTMLElement | null>(null);
 
-  const { data: notesData, isLoading, isError, error: notesQueryError } = useGetNotesQuery();
+  const { data: notesData, isLoading, isError } = useGetNotesQuery();
+  const { user } = useAuth();
   const { searchValue } = useSearch();
+  const navigate = useNavigate();
   const { isDragging } = useIsDragging();
   const [notes, setNotes] = useState<NoteData[]>(notesData ?? []);
 
@@ -71,6 +75,12 @@ export const Notes: FC = () => {
     }
   }, [notesData]);
 
+  useEffect(() => {
+    if (isError && !user.id) {
+      navigate(PAGES.HOME);
+    }
+  }, [isError, user]);
+
   return (
     <div className={styles.wrapper}>
       <article
@@ -84,7 +94,7 @@ export const Notes: FC = () => {
       >
         {isLoading && <Spinner size="l" />}
 
-        {isError && !isLoading && <Error message={notesQueryError?.message} />}
+        {isError && !isLoading && <Error message={TOAST_MESSAGES.SOMETHING_WRONG} />}
 
         {notes && !isLoading && !isError && (
           <>

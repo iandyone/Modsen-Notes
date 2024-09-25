@@ -6,7 +6,7 @@ import { AxiosApiError, NoteData } from 'types';
 
 import { API_QUERY_KEYS, PAGES, STORAGE_KEYS, TOAST_MESSAGES } from '@constants';
 import { useSearch, useToast } from '@context';
-import { removeFromLocalStorage } from '@utils';
+import { removeFromSessionStorage } from '@utils';
 
 export const useCreateNoteMutation = () => {
   const queryClient = useQueryClient();
@@ -27,7 +27,7 @@ export const useCreateNoteMutation = () => {
           showToast({
             message: TOAST_MESSAGES.UNAUTHORIZERD,
           });
-          removeFromLocalStorage(STORAGE_KEYS.ACCESS_TOKEN);
+          removeFromSessionStorage(STORAGE_KEYS.ACCESS_TOKEN);
           navigate(PAGES.HOME);
 
           return;

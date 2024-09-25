@@ -16,12 +16,12 @@ const BUTTON_MOBILE_BREAKPOINT = 645;
 
 export const Footer: FC = () => {
   const { mutate: createNote, isPending: isNoteCreation } = useCreateNoteMutation();
-  const { data: notes, isRefetching: isNotesLoading } = useGetNotesQuery();
+  const { data: notes, isLoading: isNotesLoading, isRefetching: isNotesRefetchich } = useGetNotesQuery();
   const { setSearchValue } = useSearch();
   const [viewportWidth] = useResize();
 
   const buttonContent = viewportWidth > BUTTON_MOBILE_BREAKPOINT ? 'Add a note' : '';
-  const isLoading = isNotesLoading || isNoteCreation;
+  const isLoading = isNotesLoading || isNoteCreation || isNotesRefetchich;
 
   const handleOnButtonClick = useCallback(() => {
     const lastNoteColor = notes?.at(-1)?.color ?? COLORS.GREEN_LIGHT;

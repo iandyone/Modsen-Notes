@@ -37,7 +37,7 @@ export const Note: FC<NoteProps> = ({ note, moveNote, index, notes }) => {
   }, []);
 
   const handleOnContextMenu = useCallback((event: MouseEvent<HTMLElement>) => {
-    setIsActive(true);
+    setIsActive(false);
     handleOnOpenContextMenu(event);
   }, []);
 
@@ -46,7 +46,7 @@ export const Note: FC<NoteProps> = ({ note, moveNote, index, notes }) => {
   }, []);
 
   const handleOnBlurHeading = useCallback(() => {
-    if (!isDragging) {
+    if (!isDragging && isActive) {
       const updatedNoteData: Partial<NoteData> = {
         id: id,
         title: heading,
@@ -57,7 +57,7 @@ export const Note: FC<NoteProps> = ({ note, moveNote, index, notes }) => {
   }, [id, heading, updateNote]);
 
   const handleOnBlurDescription = useCallback(() => {
-    if (!isDragging) {
+    if (!isDragging && isActive) {
       const tagsList = noteDescription.split(/(\s+|\n)/).filter((tag) => tag.startsWith('#') && tag.length > 1);
       const tags = Array.from(new Set(tagsList));
 

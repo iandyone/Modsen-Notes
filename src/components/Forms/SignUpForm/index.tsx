@@ -18,7 +18,7 @@ const signInFormInitialValues: SignUpState = {
 };
 
 export const SignUpForm: FC<SignInFormProps> = ({ className = '' }) => {
-  const { mutate: handleOnLogin } = useSignUpMutation();
+  const { mutate: handleOnLogin, isPending } = useSignUpMutation();
 
   const handleOnSubmit = ({ username, email, password, passwordConfirm }: SignUpState) => {
     if (password === passwordConfirm) {
@@ -66,7 +66,14 @@ export const SignUpForm: FC<SignInFormProps> = ({ className = '' }) => {
                   touched={touched.passwordConfirm}
                 />
               </div>
-              <Button type="submit" content="Submit" className={styles.button} />
+              <Button
+                type="submit"
+                content="Sign up"
+                spinnerColor="white"
+                isLoading={isPending}
+                withContent={!isPending}
+                className={styles.button}
+              />
             </form>
           );
         }}

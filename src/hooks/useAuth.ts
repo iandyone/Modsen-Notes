@@ -4,13 +4,13 @@ import { UserCredentialsData } from 'types';
 
 import { STORAGE_KEYS } from '@constants';
 import { useAuthContext } from '@context';
-import { getFromLocalStorage } from '@utils';
+import { getFromSessionStorage } from '@utils';
 
 export const useAuth = () => {
   const { user, setAuthDataHandler } = useAuthContext();
 
   useLayoutEffect(() => {
-    const accessToken = getFromLocalStorage(STORAGE_KEYS.ACCESS_TOKEN);
+    const accessToken = getFromSessionStorage(STORAGE_KEYS.ACCESS_TOKEN);
 
     if (!accessToken) {
       setAuthDataHandler(null);

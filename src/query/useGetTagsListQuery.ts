@@ -8,7 +8,7 @@ import { AxiosApiError, Tag } from 'types';
 import { API_QUERY_KEYS, PAGES, STORAGE_KEYS, TOAST_MESSAGES } from '@constants';
 import { useToast } from '@context';
 import { useAuth } from '@hooks';
-import { removeFromLocalStorage } from '@utils';
+import { removeFromSessionStorage } from '@utils';
 
 export const useGetTagsList = (tag?: string) => {
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ export const useGetTagsList = (tag?: string) => {
             message: TOAST_MESSAGES.UNAUTHORIZERD,
           });
           setAuthDataHandler(null);
-          removeFromLocalStorage(STORAGE_KEYS.ACCESS_TOKEN);
+          removeFromSessionStorage(STORAGE_KEYS.ACCESS_TOKEN);
           navigate(PAGES.HOME);
 
           return;

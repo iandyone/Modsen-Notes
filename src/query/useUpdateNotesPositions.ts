@@ -6,7 +6,7 @@ import { AxiosApiError, NoteData } from 'types';
 
 import { API_QUERY_KEYS, PAGES, STORAGE_KEYS, TOAST_MESSAGES } from '@constants';
 import { useToast } from '@context';
-import { removeFromLocalStorage } from '@utils';
+import { removeFromSessionStorage } from '@utils';
 
 type NoteDataPicked = Pick<NoteData, 'id' | 'position'>;
 
@@ -28,7 +28,7 @@ export const useUpdateNotesPositions = () => {
           showToast({
             message: TOAST_MESSAGES.UNAUTHORIZERD,
           });
-          removeFromLocalStorage(STORAGE_KEYS.ACCESS_TOKEN);
+          removeFromSessionStorage(STORAGE_KEYS.ACCESS_TOKEN);
           navigate(PAGES.HOME);
 
           return;

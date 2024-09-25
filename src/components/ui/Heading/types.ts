@@ -4,4 +4,5 @@ export interface HeadingProps {
   messageClassName?: string;
   icon?: string;
   withAnimation?: boolean;
+  className?: string;
 }

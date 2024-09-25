@@ -7,7 +7,7 @@ import { SignUpPayload, UserCredentialsData } from 'types';
 import { PAGES, STORAGE_KEYS, TOAST_MESSAGES } from '@constants';
 import { useToast } from '@context';
 import { useAuth } from '@hooks';
-import { saveToLocalStorage } from '@utils';
+import { saveToSessionStorage } from '@utils';
 
 export const useSignUpMutation = () => {
   const navigate = useNavigate();
@@ -42,7 +42,7 @@ export const useSignUpMutation = () => {
     },
     onSuccess(data) {
       setAuthDataHandler(data);
-      saveToLocalStorage(STORAGE_KEYS.ACCESS_TOKEN, data.accessToken);
+      saveToSessionStorage(STORAGE_KEYS.ACCESS_TOKEN, data.accessToken);
       navigate(PAGES.NOTES);
     },
     onError() {

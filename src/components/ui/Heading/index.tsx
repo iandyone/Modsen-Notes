@@ -4,9 +4,20 @@ import { FC } from 'react';
 import styles from './styles.module.css';
 import { HeadingProps } from './types';
 
-export const Heading: FC<HeadingProps> = ({ title, message, icon, messageClassName = '', withAnimation }) => {
+export const Heading: FC<HeadingProps> = ({
+  title,
+  message,
+  icon,
+  withAnimation,
+  messageClassName = '',
+  className = '',
+}) => {
   return (
-    <section className={styles.wrapper}>
+    <section
+      className={cn(styles.wrapper, {
+        [className]: className,
+      })}
+    >
       {withAnimation && (
         <div className={styles.errorWrapper}>
           <span className={styles.errorPicture} />
