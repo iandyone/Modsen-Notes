@@ -10,6 +10,7 @@
   row-gap: 8px;
   align-items: center;
   background-color: var(--color-white);
+  box-shadow: var(--shadow-context);
 }
 
 .palette {

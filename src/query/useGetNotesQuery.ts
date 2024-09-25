@@ -8,7 +8,7 @@ import { AxiosApiError, NoteData } from 'types';
 import { API_QUERY_KEYS, PAGES, STORAGE_KEYS, TOAST_MESSAGES } from '@constants';
 import { useSearch, useToast } from '@context';
 import { useAuth } from '@hooks';
-import { removeFromLocalStorage } from '@utils';
+import { removeFromSessionStorage } from '@utils';
 
 export const useGetNotesQuery = () => {
   const { searchValue: tag } = useSearch();
@@ -36,9 +36,12 @@ export const useGetNotesQuery = () => {
         if (error instanceof AxiosError && error.response.status === 401) {
           showToast({
             message: TOAST_MESSAGES.UNAUTHORIZERD,
+            settings: {
+              type: 'info',
+            },
           });
           setAuthDataHandler(null);
-          removeFromLocalStorage(STORAGE_KEYS.ACCESS_TOKEN);
+          removeFromSessionStorage(STORAGE_KEYS.ACCESS_TOKEN);
           navigate(PAGES.HOME);
 
           return;

@@ -2,29 +2,29 @@
 import { useQuery } from '@tanstack/react-query';
 import { $api } from 'config/axios';
 import { useNavigate } from 'react-router-dom';
-import { AxiosApiError, SignOutResponse } from 'types';
+import { AxiosApiError } from 'types';
 
 import { PAGES, STORAGE_KEYS } from '@constants';
 import { useAuth } from '@hooks';
-import { removeFromLocalStorage } from '@utils';
+import { removeFromSessionStorage } from '@utils';
 
 export const useSignOutQuery = () => {
   const navigate = useNavigate();
   const { user, setAuthDataHandler } = useAuth();
 
-  return useQuery<SignOutResponse, AxiosApiError>({
+  return useQuery<boolean, AxiosApiError>({
     queryKey: [user.id],
 
     queryFn: async () => {
       try {
-        const { data } = await $api.get('/auth/signout');
+        $api.get('/auth/signout');
 
-        return data ?? {};
+        return true;
       } catch (error) {
         return Promise.reject(error);
       } finally {
         setAuthDataHandler(null);
-        removeFromLocalStorage(STORAGE_KEYS.ACCESS_TOKEN);
+        removeFromSessionStorage(STORAGE_KEYS.ACCESS_TOKEN);
         navigate(PAGES.HOME);
       }
     },

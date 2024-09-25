@@ -1,8 +1,7 @@
 import { FC, useState } from 'react';
 
 import welcomeIcon from '@assets/welcome.svg';
-import { SignInForm, SignUpForm } from '@components/Forms';
-import { SignOutForm } from '@components/Forms/SignOutForm';
+import { SignInForm, SignOutForm, SignUpForm } from '@components/Forms';
 import { Heading } from '@components/ui/Heading';
 import { AUTH_MODE, HOME_WELCOME_MESSAGE, HOME_WELCOME_MESSAGE_WITH_AUTH, HOME_WELCOME_TITLE } from '@constants';
 import { useAuth } from '@hooks';
@@ -25,6 +24,7 @@ export const Home: FC = () => {
         title={HOME_WELCOME_TITLE}
         message={!user.id ? HOME_WELCOME_MESSAGE : HOME_WELCOME_MESSAGE_WITH_AUTH}
         icon={welcomeIcon}
+        className={styles.heading}
       />
 
       <div className={styles.auth}>

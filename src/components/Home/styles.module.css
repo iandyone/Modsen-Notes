@@ -9,6 +9,12 @@
   height: 100%;
 }
 
+.heading {
+  @media (max-width: 800px) {
+    display: none;
+  }
+}
+
 .form {
   width: 100%;
 }
