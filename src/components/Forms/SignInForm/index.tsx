@@ -16,7 +16,7 @@ const signInFormInitialValues: SignInState = {
 };
 
 export const SignInForm: FC<SignInFormProps> = ({ className = '' }) => {
-  const { mutate: handleOnLogin, isPending, data } = useSignInMutation();
+  const { mutate: handleOnLogin } = useSignInMutation();
 
   const handleOnSubmit = ({ email, password }: SignInState) => {
     handleOnLogin({ email, password });

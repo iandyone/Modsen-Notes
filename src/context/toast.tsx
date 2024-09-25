@@ -9,6 +9,7 @@ export function ToastProvider({ children }: PropsWithChildren) {
     () => ({
       showToast: ({ message, settings }) => {
         toast(message, {
+          type: 'error',
           ...settings,
         });
       },

@@ -1,6 +1,5 @@
 /* eslint-disable indent */
 import { useQuery } from '@tanstack/react-query';
-import { AxiosError } from 'axios';
 import { $api } from 'config/axios';
 import { useNavigate } from 'react-router-dom';
 import { AxiosApiError, SignOutResponse } from 'types';

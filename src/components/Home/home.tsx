@@ -11,7 +11,7 @@ import styles from './styles.module.css';
 
 const { SIGN_IN, SIGN_UP } = AUTH_MODE;
 
-export const HomePage: FC = () => {
+export const Home: FC = () => {
   const [authMode, setAuthMode] = useState(SIGN_IN);
   const { user } = useAuth();
 
