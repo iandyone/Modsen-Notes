@@ -38,7 +38,7 @@ export const SignUpForm: FC<SignInFormProps> = ({ className = '' }) => {
         onSubmit={handleOnSubmit}
         validateOnChange
       >
-        {({ handleSubmit, errors, touched, handleBlur, values, setErrors }) => {
+        {({ handleSubmit, errors, touched }) => {
           return (
             <form onSubmit={handleSubmit} className={styles.form}>
               <h2 className={styles.heading}>Sign up</h2>

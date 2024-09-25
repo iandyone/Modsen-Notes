@@ -26,14 +26,17 @@ export const useSignInMutation = () => {
       } catch (error) {
         if (error instanceof AxiosError && error.response.status === 401) {
           showToast({
-            message: TOAST_MESSAGES.UNAUTHORIZERD,
-            settings: {
-              type: 'error',
-            },
+            message: TOAST_MESSAGES.INVALID_CREDENTIALS,
           });
           removeFromLocalStorage(STORAGE_KEYS.ACCESS_TOKEN);
           navigate(PAGES.HOME);
+
+          return;
         }
+
+        showToast({
+          message: TOAST_MESSAGES.SOMETHING_WRONG,
+        });
 
         return Promise.reject(error);
       }
