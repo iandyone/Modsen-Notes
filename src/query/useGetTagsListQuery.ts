@@ -17,6 +17,7 @@ export const useGetTagsList = (tag?: string) => {
 
   return useQuery<Tag[], AxiosApiError>({
     queryKey: [...API_QUERY_KEYS.allTags, tag, user.id],
+
     queryFn: async () => {
       try {
         const params = tag

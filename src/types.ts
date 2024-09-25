@@ -42,3 +42,9 @@ export interface SignUpPayload {
 export interface ToastContextValues {
   showToast: (params: { message: string | JSX.Element | null; settings?: ToastOptions }) => void;
 }
+
+export interface SignOutResponse {
+  id: number;
+  token: string;
+  user_id: number;
+}

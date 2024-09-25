@@ -16,7 +16,6 @@
 .auth {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
   padding: 40px;
   border-radius: 20px;
@@ -29,6 +28,7 @@
   margin-top: 20px;
   border-top: 2px solid var(--color-gray-light);
   padding-top: 20px;
+  text-align: center;
 }
 
 .authButton {
