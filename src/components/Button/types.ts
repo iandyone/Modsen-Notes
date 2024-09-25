@@ -1,7 +1,7 @@
 export interface ButtonProps {
   content?: string;
-  view?: 'button' | 'route';
-  type?: 'button' | 'submit';
+  variant?: 'primary' | 'secondary';
+  type?: 'button' | 'submit' | 'route';
   spinnerColor?: 'white' | 'blue';
   icon?: string;
   alt?: string;

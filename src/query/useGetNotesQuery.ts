@@ -18,6 +18,7 @@ export const useGetNotesQuery = () => {
 
   return useQuery<NoteData[], AxiosApiError>({
     queryKey: [...API_QUERY_KEYS.allNotes, tag, user.id],
+
     queryFn: async () => {
       try {
         const params = tag

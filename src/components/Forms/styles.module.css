@@ -23,6 +23,25 @@
   margin-bottom: 20px;
 }
 
+.subheading {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.subtitle {
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 600;
+}
+
+.user {
+  font-size: 17px;
+  line-height: 26px;
+}
+
 .button {
   min-height: 40px;
   display: flex;
@@ -32,4 +51,8 @@
   height: 52px !important;
   background-color: var(--color-blue);
   color: var(--color-white);
+}
+
+.signOutButton {
+  width: 100% !important;
 }

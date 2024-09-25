@@ -18,7 +18,7 @@ export const Header: FC = () => {
 
       <div className={styles.linkContainer}>
         {ROUTES.map(({ route, title }) => (
-          <Button key={route} className={styles.route} view="route" route={route} content={title} />
+          <Button key={route} className={styles.route} route={route} type="route" variant="secondary" content={title} />
         ))}
       </div>
     </header>

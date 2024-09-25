@@ -13,8 +13,8 @@ import styles from './styles.module.css';
 import { ButtonProps } from './types';
 
 export const Button: FC<ButtonProps> = ({
-  view = 'button',
   type = 'button',
+  variant = 'primary',
   withContent = true,
   loaderSize = 's',
   spinnerColor,
@@ -44,18 +44,20 @@ export const Button: FC<ButtonProps> = ({
     }
   };
 
-  if (view === 'route') {
+  if (type === 'route') {
     return (
       <NavLink
         to={route}
         className={({ isActive }) =>
           cn(styles.button, {
             [className]: className,
-            [styles.route]: view === 'route',
+            [styles.variantSecondary]: variant === 'secondary',
             [styles.active]: isActive,
           })
         }
       >
+        {!isLoading && icon && <img src={icon} alt={alt} />}
+
         {content}
       </NavLink>
     );
@@ -69,7 +71,7 @@ export const Button: FC<ButtonProps> = ({
       disabled={isLoading}
       className={cn(styles.button, {
         [className]: className,
-        [styles.action]: type === 'button',
+        [styles.variantPrimary]: variant === 'primary',
         [styles.disabled]: isLoading,
       })}
     >
