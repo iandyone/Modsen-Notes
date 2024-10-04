@@ -9,6 +9,8 @@ import { useToast } from '@context';
 import { useAuth } from '@hooks';
 import { removeFromSessionStorage, saveToSessionStorage } from '@utils';
 
+const { INVALID_CREDENTIALS, SOMETHING_WRONG } = TOAST_MESSAGES;
+
 export const useSignInMutation = () => {
   const navigate = useNavigate();
   const { setAuthDataHandler } = useAuth();
@@ -26,7 +28,7 @@ export const useSignInMutation = () => {
       } catch (error) {
         if (error instanceof AxiosError && error.response.status === 401) {
           showToast({
-            message: TOAST_MESSAGES.INVALID_CREDENTIALS,
+            message: INVALID_CREDENTIALS,
           });
           removeFromSessionStorage(STORAGE_KEYS.ACCESS_TOKEN);
           navigate(PAGES.HOME);
@@ -35,7 +37,7 @@ export const useSignInMutation = () => {
         }
 
         showToast({
-          message: TOAST_MESSAGES.SOMETHING_WRONG,
+          message: SOMETHING_WRONG,
         });
 
         return Promise.reject(error);

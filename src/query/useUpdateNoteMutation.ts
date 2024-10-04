@@ -10,8 +10,9 @@ import { removeFromSessionStorage } from '@utils';
 
 export const useUpdateNoteMutation = () => {
   const queryClient = useQueryClient();
-  const { searchValue } = useSearch();
   const navigate = useNavigate();
+
+  const { searchValue } = useSearch();
   const { showToast } = useToast();
 
   return useMutation<NoteData, AxiosApiError, Partial<NoteData>>({

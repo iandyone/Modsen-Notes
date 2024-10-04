@@ -54,7 +54,7 @@ export const Note: FC<NoteProps> = ({ note, moveNote, index, notes }) => {
 
       updateNote(updatedNoteData);
     }
-  }, [id, heading, updateNote]);
+  }, [id, heading, updateNote, isActive, isDragging]);
 
   const handleOnBlurDescription = useCallback(() => {
     if (!isDragging && isActive) {
@@ -72,7 +72,7 @@ export const Note: FC<NoteProps> = ({ note, moveNote, index, notes }) => {
 
       updateNote(updatedNoteData);
     }
-  }, [id, updateNote, noteDescription]);
+  }, [id, updateNote, noteDescription, isActive, isDragging, notes]);
 
   const handleOnClickColor = useCallback(
     (color: string) => {
@@ -154,7 +154,7 @@ export const Note: FC<NoteProps> = ({ note, moveNote, index, notes }) => {
 
   useEffect(() => {
     setNoteDescription(note.description);
-  }, [note]);
+  }, [note.description]);
 
   return (
     <article

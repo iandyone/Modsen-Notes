@@ -3,13 +3,15 @@ import axios, { InternalAxiosRequestConfig } from 'axios';
 import { BASE_URL, STORAGE_KEYS } from '@constants';
 import { getFromSessionStorage, saveToSessionStorage } from '@utils';
 
+const { ACCESS_TOKEN } = STORAGE_KEYS;
+
 export const $api = axios.create({
   withCredentials: true,
   baseURL: BASE_URL,
 });
 
 $api.interceptors.request.use((config: InternalAxiosRequestConfig) => {
-  const accessToken = getFromSessionStorage(STORAGE_KEYS.ACCESS_TOKEN);
+  const accessToken = getFromSessionStorage(ACCESS_TOKEN);
   config.headers.Authorization = `Bearer ${accessToken}`;
 
   return config;
@@ -28,7 +30,7 @@ $api.interceptors.response.use(
           withCredentials: true,
         });
 
-        saveToSessionStorage(STORAGE_KEYS.ACCESS_TOKEN, data.accessToken);
+        saveToSessionStorage(ACCESS_TOKEN, data.accessToken);
 
         return $api.request(config);
       } catch (error) {

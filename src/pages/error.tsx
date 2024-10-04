@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { Error } from '@components/ui/Error';
+import { Error } from '@ui/Error';
 
 export const ErrorPage: FC = () => (
   <>

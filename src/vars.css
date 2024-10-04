@@ -16,6 +16,9 @@
   --color-orange: #ffee8e8f;
   --color-yellow: #fef4e8;
 
+  --color-validation-done: #20B602;
+  --color-validation-false: #DD0002;
+
   /* --- FONTS --- */
   --font-inter: "Inter";
 

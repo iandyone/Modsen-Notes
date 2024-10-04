@@ -10,6 +10,8 @@ import { useToast } from '@context';
 import { useAuth } from '@hooks';
 import { removeFromSessionStorage } from '@utils';
 
+const { UNAUTHORIZERD, SOMETHING_WRONG } = TOAST_MESSAGES;
+
 export const useGetTagsList = (tag?: string) => {
   const navigate = useNavigate();
   const { showToast } = useToast();
@@ -34,7 +36,7 @@ export const useGetTagsList = (tag?: string) => {
       } catch (error) {
         if (error instanceof AxiosError && error.response.status === 401) {
           showToast({
-            message: TOAST_MESSAGES.UNAUTHORIZERD,
+            message: UNAUTHORIZERD,
           });
           setAuthDataHandler(null);
           removeFromSessionStorage(STORAGE_KEYS.ACCESS_TOKEN);
@@ -44,7 +46,7 @@ export const useGetTagsList = (tag?: string) => {
         }
 
         showToast({
-          message: TOAST_MESSAGES.SOMETHING_WRONG,
+          message: SOMETHING_WRONG,
         });
 
         return Promise.reject(error);

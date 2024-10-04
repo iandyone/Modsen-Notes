@@ -10,6 +10,8 @@ import { useSearch, useToast } from '@context';
 import { useAuth } from '@hooks';
 import { removeFromSessionStorage } from '@utils';
 
+const { UNAUTHORIZERD, SOMETHING_WRONG } = TOAST_MESSAGES;
+
 export const useGetNotesQuery = () => {
   const { searchValue: tag } = useSearch();
   const navigate = useNavigate();
@@ -35,7 +37,7 @@ export const useGetNotesQuery = () => {
       } catch (error) {
         if (error instanceof AxiosError && error.response.status === 401) {
           showToast({
-            message: TOAST_MESSAGES.UNAUTHORIZERD,
+            message: UNAUTHORIZERD,
             settings: {
               type: 'info',
             },
@@ -48,7 +50,7 @@ export const useGetNotesQuery = () => {
         }
 
         showToast({
-          message: TOAST_MESSAGES.SOMETHING_WRONG,
+          message: SOMETHING_WRONG,
         });
 
         return Promise.reject(error);

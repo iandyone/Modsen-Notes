@@ -9,6 +9,8 @@ import { useToast } from '@context';
 import { useAuth } from '@hooks';
 import { saveToSessionStorage } from '@utils';
 
+const { SOMETHING_WRONG } = TOAST_MESSAGES;
+
 export const useSignUpMutation = () => {
   const navigate = useNavigate();
   const { setAuthDataHandler } = useAuth();
@@ -34,7 +36,7 @@ export const useSignUpMutation = () => {
         }
 
         showToast({
-          message: TOAST_MESSAGES.SOMETHING_WRONG,
+          message: SOMETHING_WRONG,
         });
 
         return Promise.reject(error);
