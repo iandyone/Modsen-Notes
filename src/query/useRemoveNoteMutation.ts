@@ -8,10 +8,12 @@ import { API_QUERY_KEYS, PAGES, STORAGE_KEYS, TOAST_MESSAGES } from '@constants'
 import { useSearch, useToast } from '@context';
 import { removeFromSessionStorage } from '@utils';
 
+const { UNAUTHORIZERD, SOMETHING_WRONG } = TOAST_MESSAGES;
+
 export const useRemoveNoteMutation = () => {
   const queryClient = useQueryClient();
-  const { searchValue } = useSearch();
   const navigate = useNavigate();
+  const { searchValue } = useSearch();
   const { showToast } = useToast();
 
   return useMutation<NoteData, AxiosApiError, number>({
@@ -25,7 +27,7 @@ export const useRemoveNoteMutation = () => {
       } catch (error) {
         if (error instanceof AxiosError && error.response.status === 401) {
           showToast({
-            message: TOAST_MESSAGES.UNAUTHORIZERD,
+            message: UNAUTHORIZERD,
           });
           removeFromSessionStorage(STORAGE_KEYS.ACCESS_TOKEN);
           navigate(PAGES.HOME);
@@ -34,7 +36,7 @@ export const useRemoveNoteMutation = () => {
         }
 
         showToast({
-          message: TOAST_MESSAGES.SOMETHING_WRONG,
+          message: SOMETHING_WRONG,
         });
 
         return Promise.reject(error);

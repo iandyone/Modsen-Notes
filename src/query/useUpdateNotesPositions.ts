@@ -10,6 +10,8 @@ import { removeFromSessionStorage } from '@utils';
 
 type NoteDataPicked = Pick<NoteData, 'id' | 'position'>;
 
+const { UNAUTHORIZERD, SOMETHING_WRONG } = TOAST_MESSAGES;
+
 export const useUpdateNotesPositions = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
@@ -26,7 +28,7 @@ export const useUpdateNotesPositions = () => {
       } catch (error) {
         if (error instanceof AxiosError && error.response.status === 401) {
           showToast({
-            message: TOAST_MESSAGES.UNAUTHORIZERD,
+            message: UNAUTHORIZERD,
           });
           removeFromSessionStorage(STORAGE_KEYS.ACCESS_TOKEN);
           navigate(PAGES.HOME);
@@ -35,7 +37,7 @@ export const useUpdateNotesPositions = () => {
         }
 
         showToast({
-          message: TOAST_MESSAGES.SOMETHING_WRONG,
+          message: SOMETHING_WRONG,
         });
 
         return Promise.reject(error);

@@ -3,7 +3,7 @@ import { forwardRef, MouseEvent } from 'react';
 
 import { Button } from '@components/Button';
 import { Color } from '@components/ui/Color';
-import { ORDERED_COLORS } from '@constants';
+import { COLORS_BY_ORDER } from '@constants';
 
 import styles from './styles.module.css';
 import { ContextMenuProps } from './types';
@@ -27,7 +27,7 @@ export const ContextMenu = forwardRef<HTMLDivElement, ContextMenuProps>(
         }}
       >
         <div className={styles.palette}>
-          {ORDERED_COLORS.map((color) => (
+          {COLORS_BY_ORDER.map((color) => (
             <Color key={color} color={color} onClick={handleOnClickColor} />
           ))}
         </div>
